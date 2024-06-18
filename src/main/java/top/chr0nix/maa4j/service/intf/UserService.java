@@ -1,5 +1,6 @@
 package top.chr0nix.maa4j.service.intf;
 
+import top.chr0nix.maa4j.dto.AddAccountDTO;
 import top.chr0nix.maa4j.dto.AddUserDTO;
 
 public interface UserService {

@@ -2,6 +2,9 @@ package top.chr0nix.maa4j.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import top.chr0nix.maa4j.entity.converter.JsonConverter;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -17,5 +20,9 @@ public class UserEntity {
 
     @Column(columnDefinition = "text comment '密码'", nullable = false)
     String password;
+
+    @Column(columnDefinition = "text comment '账号'")
+    @Convert(converter = JsonConverter.class)
+    List<AccountEntity> accounts;
 
 }
