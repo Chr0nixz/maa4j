@@ -1,0 +1,21 @@
+package top.chr0nix.maa4j.entity;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+@Data
+@Entity
+@Table(name = "user")
+public class UserEntity {
+
+    @Id
+    @Column(columnDefinition = "bigint unsigned auto_increment comment '主键'", nullable = false)
+    Long id;
+
+    @Column(columnDefinition = "tinytext comment '用户名'", nullable = false)
+    String name;
+
+    @Column(columnDefinition = "text comment '密码'", nullable = false)
+    String password;
+
+}
