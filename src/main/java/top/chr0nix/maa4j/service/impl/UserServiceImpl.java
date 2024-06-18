@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService {
             UserEntity userEntity = new UserEntity();
             userEntity.setName(user.getName());
             userEntity.setPassword(user.getPassword());
+            repo.save(userEntity);
         }
         return 200;
     }

@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import top.chr0nix.maa4j.dto.AddUserDTO;
-import top.chr0nix.maa4j.entity.UserEntity;
-import top.chr0nix.maa4j.repository.UserRepository;
 import top.chr0nix.maa4j.service.intf.UserService;
 
 @RestController
