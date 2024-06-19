@@ -13,7 +13,7 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(columnDefinition = "bigint unsigned auto_increment comment '主键'", nullable = false)
+    @Column(columnDefinition = "bigint unsigned comment '主键'", nullable = false)
     Long id;
 
     @Column(columnDefinition = "varchar(255) unique comment '用户名'", nullable = false)

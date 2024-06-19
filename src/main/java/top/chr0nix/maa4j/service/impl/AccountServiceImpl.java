@@ -8,6 +8,8 @@ import top.chr0nix.maa4j.repository.AccountRepository;
 import top.chr0nix.maa4j.service.intf.AccountService;
 import top.chr0nix.maa4j.service.intf.UserService;
 
+import java.util.UUID;
+
 @Service
 public class AccountServiceImpl implements AccountService {
 
@@ -27,6 +29,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public int addAccount(AddAccountDTO accountDTO) {
         AccountEntity account = new AccountEntity();
+        Long id = Long.valueOf(UUID.randomUUID().toString().replace("-",""));
+        account.setId(id);
         account.setAccount(accountDTO.getAccount());
         account.setPassword(accountDTO.getPassword());
         account.setOwner(accountDTO.getOwner());

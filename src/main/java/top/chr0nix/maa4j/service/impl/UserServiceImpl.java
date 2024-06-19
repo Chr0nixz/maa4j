@@ -9,6 +9,7 @@ import top.chr0nix.maa4j.repository.UserRepository;
 import top.chr0nix.maa4j.service.intf.UserService;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -24,6 +25,8 @@ public class UserServiceImpl implements UserService {
     public int addUser(AddUserDTO user) {
         if (user != null){
             UserEntity userEntity = new UserEntity();
+            Long id = Long.valueOf(UUID.randomUUID().toString().replace("-",""));
+            userEntity.setId(id);
             userEntity.setName(user.getName());
             userEntity.setPassword(user.getPassword());
             userRepo.save(userEntity);
