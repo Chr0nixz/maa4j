@@ -9,4 +9,6 @@ public class AddAccountDTO {
 
     private String password;
 
+    private Long owner;
+
 }

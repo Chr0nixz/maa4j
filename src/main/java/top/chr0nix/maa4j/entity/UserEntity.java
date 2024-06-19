@@ -12,10 +12,11 @@ import java.util.List;
 public class UserEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(columnDefinition = "bigint unsigned auto_increment comment '主键'", nullable = false)
     Long id;
 
-    @Column(columnDefinition = "tinytext comment '用户名'", nullable = false)
+    @Column(columnDefinition = "varchar(255) unique comment '用户名'", nullable = false)
     String name;
 
     @Column(columnDefinition = "text comment '密码'", nullable = false)
@@ -23,6 +24,6 @@ public class UserEntity {
 
     @Column(columnDefinition = "text comment '账号'")
     @Convert(converter = JsonConverter.class)
-    List<AccountEntity> accounts;
+    List<String> accounts;
 
 }
