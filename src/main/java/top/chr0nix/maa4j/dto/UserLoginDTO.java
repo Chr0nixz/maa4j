@@ -3,9 +3,9 @@ package top.chr0nix.maa4j.dto;
 import lombok.Data;
 
 @Data
-public class AddAccountDTO {
+public class UserLoginDTO {
 
-    private String account;
+    private String name;
 
     private String password;
 

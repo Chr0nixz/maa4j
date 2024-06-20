@@ -1,29 +1,32 @@
 package top.chr0nix.maa4j.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.chr0nix.maa4j.dto.AddUserDTO;
+import top.chr0nix.maa4j.dto.UserLoginDTO;
 import top.chr0nix.maa4j.service.intf.UserService;
+import top.chr0nix.maa4j.utils.Result;
 
 @RestController
 @ResponseBody
 @RequestMapping("/user")
 public class UserController {
 
-    private final UserService userService;
+    private UserService userService;
 
     @Autowired
-    public UserController(UserService userService){
+    public void setUserService(UserService userService){
         this.userService = userService;
     }
 
+    @PostMapping("/login")
+    public Result<String> userLogin(@RequestBody UserLoginDTO userLoginDTO){
+        return userService.loginUser(userLoginDTO);
+    }
+
     @RequestMapping("/add")
-    public int addUser(@RequestBody AddUserDTO userDTO){
-        userService.addUser(userDTO);
-        return 200;
+    public Result<String> addUser(@RequestBody AddUserDTO userDTO){
+        return userService.addUser(userDTO);
     }
 
 }

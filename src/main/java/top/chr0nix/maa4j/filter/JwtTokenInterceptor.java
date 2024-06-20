@@ -31,9 +31,6 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
         }
 
         String token = request.getHeader("Authorization");
-        if (token != null && token.length() > 7) {
-            token = token.substring(7);
-        }
 
         HandlerMethod method = (HandlerMethod) handler;
 

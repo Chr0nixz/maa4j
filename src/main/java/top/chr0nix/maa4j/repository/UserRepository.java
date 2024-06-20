@@ -6,4 +6,7 @@ import top.chr0nix.maa4j.entity.UserEntity;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
+
+    public UserEntity findFirstByNameAndPassword(String name, String password);
+
 }

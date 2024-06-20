@@ -19,5 +19,5 @@ spring:
         format_sql: true
 
 maa4j:
-  secret: 114514
+  secret:
   ignore_auth: false

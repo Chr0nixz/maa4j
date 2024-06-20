@@ -1,12 +1,16 @@
 package top.chr0nix.maa4j.service.intf;
 
 import top.chr0nix.maa4j.dto.AddUserDTO;
+import top.chr0nix.maa4j.dto.UserLoginDTO;
+import top.chr0nix.maa4j.utils.Result;
 
 public interface UserService {
 
-    public int addUser(AddUserDTO user);
+    public Result<String> addUser(AddUserDTO user);
+
+    public Result<String> loginUser(UserLoginDTO userLoginDTO);
 
     public int deleteUser(Long id);
 
-    int addAccountToUser(Long accountId, Long id);
+    public boolean addAccountToUser(Long accountId, Long id);
 }

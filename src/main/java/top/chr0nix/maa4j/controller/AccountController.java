@@ -2,9 +2,12 @@ package top.chr0nix.maa4j.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import top.chr0nix.maa4j.annotation.UserLogin;
 import top.chr0nix.maa4j.dto.AddAccountDTO;
 import top.chr0nix.maa4j.exception.UserNotFoundException;
 import top.chr0nix.maa4j.service.intf.AccountService;
+import top.chr0nix.maa4j.utils.JWTUtils;
+import top.chr0nix.maa4j.utils.Result;
 
 @RestController
 @RequestMapping("/account")
@@ -18,14 +21,11 @@ public class AccountController {
         this.accountService = service;
     }
 
+    @UserLogin
     @PostMapping("/add")
-    public int addAccount(@RequestBody AddAccountDTO accountDTO){
-        try {
-            accountService.addAccount(accountDTO);
-        }catch (UserNotFoundException e){
-            return 500;
-        }
-        return 200;
+    public Result<String> addAccount(@RequestHeader("Authorization") String token,
+                             @RequestBody AddAccountDTO accountDTO) {
+        return accountService.addAccount(accountDTO, JWTUtils.getId(token));
     }
 
 }
