@@ -42,9 +42,8 @@ public class AccountServiceImpl implements AccountService {
             account.setAccount(accountDTO.getAccount());
             account.setPassword(accountDTO.getPassword());
             account.setOwner(ownerId);
+            userService.addAccountToUser(account.getId(), account.getOwner());
             accountRepo.save(account);
-            AccountEntity addedUser = accountRepo.findFirstByAccount(accountDTO.getAccount());
-            userService.addAccountToUser(addedUser.getId(), addedUser.getOwner());
             return Result.success("添加成功！");
         } catch (DataIntegrityViolationException e) {
             return Result.failed("账号已存在！");

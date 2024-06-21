@@ -25,7 +25,7 @@ public class Encoder {
         }
     }
 
-    public Key generateKey(){
+    public static Key generateKey(){
         return aesGenerator.generateKey();
     }
 

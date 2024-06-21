@@ -9,12 +9,14 @@ import top.chr0nix.maa4j.entity.UserEntity;
 import top.chr0nix.maa4j.exception.UserNotFoundException;
 import top.chr0nix.maa4j.repository.UserRepository;
 import top.chr0nix.maa4j.service.intf.UserService;
+import top.chr0nix.maa4j.utils.Encoder;
 import top.chr0nix.maa4j.utils.JWTUtils;
 import top.chr0nix.maa4j.utils.Result;
 import top.chr0nix.maa4j.utils.SnowFlake;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -42,6 +44,7 @@ public class UserServiceImpl implements UserService {
                 userEntity.setName(user.getName());
                 userEntity.setPassword(user.getPassword());
                 userEntity.setRegister_time(LocalDateTime.now());
+                userEntity.setGame_key(Encoder.generateKey().toString());
                 userRepo.save(userEntity);
                 return Result.success();
             } else {
@@ -65,6 +68,11 @@ public class UserServiceImpl implements UserService {
         } else  {
             return  Result.unauthorized("用户名或密码错误！");
         }
+    }
+
+    @Override
+    public UserEntity getUserById(Long id) {
+        return null;
     }
 
     @Override
