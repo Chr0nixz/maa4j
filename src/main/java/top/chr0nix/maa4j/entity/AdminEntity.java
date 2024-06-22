@@ -1,12 +1,14 @@
-package top.chr0nix.maa4j.entity.converter;
+package top.chr0nix.maa4j.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
 @Entity
+@Table(name = "admin")
 public class AdminEntity {
 
     @Id

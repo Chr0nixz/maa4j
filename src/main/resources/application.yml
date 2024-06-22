@@ -21,3 +21,5 @@ spring:
 maa4j:
   secret:
   ignore_auth: false
+  maa-path: "D:\\maa4j\\maa"
+  adb-path: "D:\\maa4j\\maa\\adb\\platform-tools\\adb.exe"

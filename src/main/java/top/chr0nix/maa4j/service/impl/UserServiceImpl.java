@@ -44,14 +44,14 @@ public class UserServiceImpl implements UserService {
                 userEntity.setName(user.getName());
                 userEntity.setPassword(user.getPassword());
                 userEntity.setRegister_time(LocalDateTime.now());
-                userEntity.setGame_key(Encoder.generateKey().toString());
+                userEntity.setGame_key(UUID.randomUUID().toString().replace("-", ""));
                 userRepo.save(userEntity);
                 return Result.success();
             } else {
                 return Result.paramError("参数有误");
             }
         } catch (DataIntegrityViolationException e) {
-            return Result.failed("用户已存在");
+            return Result.failed("用户已存在!");
         }
     }
 
@@ -64,15 +64,15 @@ public class UserServiceImpl implements UserService {
         if (user != null) {
             user.setLast_login(LocalDateTime.now());
             userRepo.saveAndFlush(user);
-            return Result.success(JWTUtils.generateTokenForUser(user), "登陆成功！");
+            return Result.success(JWTUtils.generateTokenForUser(user), "登录成功！");
         } else  {
-            return  Result.unauthorized("用户名或密码错误！");
+            return  Result.failed("用户名或密码错误！");
         }
     }
 
     @Override
     public UserEntity getUserById(Long id) {
-        return null;
+        return userRepo.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
     @Override
@@ -81,8 +81,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean addAccountToUser(Long accountId, Long userId) {
-        UserEntity user = userRepo.findById(userId).orElseThrow(() -> new UserNotFoundException(""));
+    public UserEntity addAccountToUser(Long accountId, Long userId) {
+        UserEntity user = userRepo.findById(userId).orElseThrow(UserNotFoundException::new);
         List<String> accounts = user.getAccounts();
         if (accounts == null) {
             accounts = List.of(accountId.toString());
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
         }
         user.setAccounts(accounts);
         userRepo.saveAndFlush(user);
-        return true;
+        return user;
     }
 
 }

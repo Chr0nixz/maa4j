@@ -6,4 +6,8 @@ public class UserNotFoundException extends RuntimeException{
         super(message);
     }
 
+    public UserNotFoundException(){
+        super("用户不存在！");
+    }
+
 }

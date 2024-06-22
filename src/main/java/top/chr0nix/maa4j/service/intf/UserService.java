@@ -15,6 +15,6 @@ public interface UserService {
 
     public int deleteUser(Long id);
 
-    public boolean addAccountToUser(Long accountId, Long id);
+    public UserEntity addAccountToUser(Long accountId, Long id);
 
 }
