@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import top.chr0nix.maa4j.maa.MaaCallback;
 import top.chr0nix.maa4j.maa.MaaCore;
 import top.chr0nix.maa4j.maa.MaaInstance;
+import top.chr0nix.maa4j.maa.MaaTasks.AbstractTask;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -26,8 +27,8 @@ public class MaaService {
         return true;
     }
 
-    public void appendTask(String account, String type, String params){
-        instancePool.get(account).appendTask(type, params);
+    public int appendTask(String account, AbstractTask task){
+        return instancePool.get(account).appendTask(task.getType(), task.getParams());
     }
 
     public void start(String account){

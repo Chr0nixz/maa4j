@@ -30,8 +30,8 @@ public class MaaInstance {
         return true;
     }
 
-    public void appendTask(String type, String params){
-        maaCore.AsstAppendTask(pointer, type, params);
+    public int appendTask(String type, String params){
+        return maaCore.AsstAppendTask(pointer, type, params);
     }
 
     public void start(){
