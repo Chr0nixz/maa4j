@@ -6,15 +6,15 @@ import org.springframework.stereotype.Service;
 import top.chr0nix.maa4j.dto.AddUserDTO;
 import top.chr0nix.maa4j.dto.UserLoginDTO;
 import top.chr0nix.maa4j.entity.UserEntity;
-import top.chr0nix.maa4j.exception.UserNotFoundException;
+import top.chr0nix.maa4j.exception.user.UserNotFoundException;
 import top.chr0nix.maa4j.repository.UserRepository;
 import top.chr0nix.maa4j.service.intf.UserService;
-import top.chr0nix.maa4j.utils.Encoder;
 import top.chr0nix.maa4j.utils.JWTUtils;
 import top.chr0nix.maa4j.utils.Result;
 import top.chr0nix.maa4j.utils.SnowFlake;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -81,17 +81,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity addAccountToUser(Long accountId, Long userId) {
+    public void addAccountToUser(Long accountId, Long userId) {
         UserEntity user = userRepo.findById(userId).orElseThrow(UserNotFoundException::new);
-        List<String> accounts = user.getAccounts();
+        ArrayList<Long> accounts = user.getAccounts();
         if (accounts == null) {
-            accounts = List.of(accountId.toString());
+            accounts = new ArrayList<Long>(List.of(accountId));
         }else {
-            accounts.add(accountId.toString());
+            accounts.add(accountId);
         }
         user.setAccounts(accounts);
         userRepo.saveAndFlush(user);
-        return user;
     }
 
 }

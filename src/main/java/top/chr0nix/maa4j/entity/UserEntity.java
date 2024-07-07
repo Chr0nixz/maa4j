@@ -2,10 +2,10 @@ package top.chr0nix.maa4j.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import top.chr0nix.maa4j.entity.converter.JsonConverter;
+import top.chr0nix.maa4j.entity.converter.LongListConverter;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.ArrayList;
 
 @Data
 @Entity
@@ -23,8 +23,8 @@ public class UserEntity {
     String password;
 
     @Column(columnDefinition = "text comment '账号'")
-    @Convert(converter = JsonConverter.class)
-    List<String> accounts;
+    @Convert(converter = LongListConverter.class)
+    ArrayList<Long> accounts;
 
     @Column(columnDefinition = "text comment '秘钥'")
     String game_key;

@@ -3,7 +3,8 @@ package top.chr0nix.maa4j.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import top.chr0nix.maa4j.entity.config.AccountConfig;
-import top.chr0nix.maa4j.entity.converter.JsonConverter;
+import top.chr0nix.maa4j.entity.converter.AccountConfigConverter;
+import top.chr0nix.maa4j.entity.converter.StringListConverter;
 
 import java.time.LocalDateTime;
 
@@ -32,7 +33,7 @@ public class AccountEntity {
     boolean banned;
 
     @Column(columnDefinition = "text comment '设置'")
-    @Convert(converter = JsonConverter.class)
+    @Convert(converter = AccountConfigConverter.class)
     AccountConfig config;
 
     @Column(columnDefinition = "longtext comment '日志'")

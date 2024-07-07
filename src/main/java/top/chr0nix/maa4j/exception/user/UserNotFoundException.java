@@ -1,4 +1,4 @@
-package top.chr0nix.maa4j.exception;
+package top.chr0nix.maa4j.exception.user;
 
 public class UserNotFoundException extends RuntimeException{
 

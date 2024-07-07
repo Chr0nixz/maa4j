@@ -7,14 +7,14 @@ import top.chr0nix.maa4j.utils.Result;
 
 public interface UserService {
 
-    public Result<String> addUser(AddUserDTO user);
+    Result<String> addUser(AddUserDTO user);
 
-    public Result<String> loginUser(UserLoginDTO userLoginDTO);
+    Result<String> loginUser(UserLoginDTO userLoginDTO);
 
-    public UserEntity getUserById(Long id);
+    UserEntity getUserById(Long id);
 
-    public int deleteUser(Long id);
+    int deleteUser(Long id);
 
-    public UserEntity addAccountToUser(Long accountId, Long id);
+    void addAccountToUser(Long accountId, Long id);
 
 }

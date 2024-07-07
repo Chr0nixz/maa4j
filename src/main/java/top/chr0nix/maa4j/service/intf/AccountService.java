@@ -1,10 +1,13 @@
 package top.chr0nix.maa4j.service.intf;
 
+import top.chr0nix.maa4j.dto.AccountConfigDTO;
 import top.chr0nix.maa4j.dto.AddAccountDTO;
 import top.chr0nix.maa4j.utils.Result;
 
 public interface AccountService {
 
-    public Result<String> addAccount(AddAccountDTO accountDTO, Long ownerId) ;
+    Result<String> addAccount(AddAccountDTO addAccountDTO, Long ownerId);
+
+    Result<String> updateConfig(AccountConfigDTO accountConfigDTO, Long ownerId);
 
 }
