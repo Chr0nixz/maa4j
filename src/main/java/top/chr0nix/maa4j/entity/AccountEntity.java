@@ -1,14 +1,21 @@
 package top.chr0nix.maa4j.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import top.chr0nix.maa4j.entity.config.AccountConfig;
 import top.chr0nix.maa4j.entity.converter.AccountConfigConverter;
-import top.chr0nix.maa4j.entity.converter.StringListConverter;
 
 import java.time.LocalDateTime;
 
 @Data
+@Accessors(chain = true)
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "account")
 public class AccountEntity {
@@ -42,7 +49,7 @@ public class AccountEntity {
     @Column(columnDefinition = "tinyint unsigned default '1' comment '优先级'", nullable = false)
     int priority;
 
-    @Column(columnDefinition = "datetime comment '上次登录时间'")
-    LocalDateTime last_login;
+    @Column(columnDefinition = "last_login datetime comment '上次登录时间'")
+    LocalDateTime lastLogin;
 
 }

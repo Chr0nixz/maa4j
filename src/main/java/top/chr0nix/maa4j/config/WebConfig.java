@@ -6,16 +6,29 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import top.chr0nix.maa4j.filter.JwtTokenInterceptor;
+import top.chr0nix.maa4j.filter.OwnerVerifyInterceptor;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    @Autowired
     private JwtTokenInterceptor jwtTokenInterceptor;
+    private OwnerVerifyInterceptor ownerVerifyInterceptor;
+
+    @Autowired
+    public void setJwtTokenInterceptor(JwtTokenInterceptor jwtTokenInterceptor) {
+        this.jwtTokenInterceptor = jwtTokenInterceptor;
+    }
+
+    @Autowired
+    public void setOwnerVerifyInterceptor(OwnerVerifyInterceptor ownerVerifyInterceptor) {
+        this.ownerVerifyInterceptor = ownerVerifyInterceptor;
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtTokenInterceptor)
+                .addPathPatterns("/**");
+        registry.addInterceptor(ownerVerifyInterceptor)
                 .addPathPatterns("/**");
     }
 

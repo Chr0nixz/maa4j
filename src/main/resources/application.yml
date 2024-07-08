@@ -19,7 +19,7 @@ spring:
         format_sql: true
 
 maa4j:
-  secret:
+  secret: "maa"
   ignore_auth: true
   maa-path: "D:\\maa4j\\maa"
   adb-path: "D:\\maa4j\\maa\\adb\\platform-tools\\adb.exe"

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import top.chr0nix.maa4j.dto.AccountConfigDTO;
 import top.chr0nix.maa4j.entity.config.fight.FightConfig;
 import top.chr0nix.maa4j.exception.config.WrongFightConfigException;
+import top.chr0nix.maa4j.exception.config.WrongInfrastConfigException;
+import top.chr0nix.maa4j.exception.config.WrongRecruitConfigException;
 
 @Data
 @AllArgsConstructor
@@ -26,18 +28,27 @@ public class AccountConfig {
 
     public void loadDTO(AccountConfigDTO accountConfigDTO) {
 
-        this.enableFight = accountConfigDTO.isEnableFight();
-
-        this.enableInfrast = accountConfigDTO.isEnableInfrast();
-
-        this.enableRecruit = accountConfigDTO.isEnableRecruit();
-
-        if (this.enableFight && accountConfigDTO.getFightConfig() == null) {
-            throw new WrongFightConfigException();
+        enableFight = accountConfigDTO.isEnableFight();
+        enableInfrast = accountConfigDTO.isEnableInfrast();
+        enableRecruit = accountConfigDTO.isEnableRecruit();
+        fightConfig = accountConfigDTO.getFightConfig();
+        infrastConfig = accountConfigDTO.getInfrastConfig();
+        recruitConfig = accountConfigDTO.getRecruitConfig();
+        if (enableFight) {
+            if (fightConfig == null || !fightConfig.check()) {
+                throw new WrongFightConfigException();
+            }
         }
-
-
-
+        if (enableInfrast) {
+            if (infrastConfig == null || !infrastConfig.check()) {
+                throw new WrongFightConfigException();
+            }
+        }
+        if (enableRecruit) {
+            if (recruitConfig == null || !recruitConfig.check()) {
+                throw new WrongFightConfigException();
+            }
+        }
     }
 
 }

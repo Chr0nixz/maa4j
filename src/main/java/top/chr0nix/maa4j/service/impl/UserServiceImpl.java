@@ -35,16 +35,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result<String> addUser(AddUserDTO user) {
+    public Result<String> addUser(AddUserDTO addUserDTO) {
         try {
-            if (user != null){
+            if (addUserDTO != null){
                 UserEntity userEntity = new UserEntity();
+                var user = addUserDTO;
                 Long id = idGenerator.nextId();
+                //UserEntity userEntity = UserEntity.builder().id(id).name(addUserDTO.getName()).password(addUserDTO.getPassword()).r
                 userEntity.setId(id);
                 userEntity.setName(user.getName());
                 userEntity.setPassword(user.getPassword());
-                userEntity.setRegister_time(LocalDateTime.now());
-                userEntity.setGame_key(UUID.randomUUID().toString().replace("-", ""));
+                userEntity.setRegisterTime(LocalDateTime.now());
+                userEntity.setGameKey(UUID.randomUUID().toString().replace("-", ""));
                 userRepo.save(userEntity);
                 return Result.success();
             } else {
@@ -62,7 +64,7 @@ public class UserServiceImpl implements UserService {
         }
         var user = userRepo.findFirstByNameAndPassword(userLoginDTO.getName(), userLoginDTO.getPassword());
         if (user != null) {
-            user.setLast_login(LocalDateTime.now());
+            user.setLastLogin(LocalDateTime.now());
             userRepo.saveAndFlush(user);
             return Result.success(JWTUtils.generateTokenForUser(user), "登录成功！");
         } else  {
@@ -91,6 +93,22 @@ public class UserServiceImpl implements UserService {
         }
         user.setAccounts(accounts);
         userRepo.saveAndFlush(user);
+    }
+
+    @Override
+    public boolean hasAccount(String account, Long userId) {
+        UserEntity user = userRepo.findById(userId).orElse(new UserEntity());
+        return hasAccountId(user.getId(), user);
+    }
+
+    @Override
+    public boolean hasAccountId(Long accountId, Long userId) {
+        return hasAccountId(accountId, userRepo.findById(userId).orElse(new UserEntity()));
+    }
+
+    @Override
+    public boolean hasAccountId(Long accountId, UserEntity user) {
+        return user.getAccounts().contains(accountId);
     }
 
 }

@@ -17,4 +17,10 @@ public interface UserService {
 
     void addAccountToUser(Long accountId, Long id);
 
+    boolean hasAccount(String account, Long userId);
+
+    boolean hasAccountId(Long accountId, Long userId);
+
+    boolean hasAccountId(Long accountId, UserEntity user);
+
 }

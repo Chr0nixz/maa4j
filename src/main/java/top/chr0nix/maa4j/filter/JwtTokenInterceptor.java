@@ -32,6 +32,10 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
 
         String token = request.getHeader("Authorization");
 
+        if (token == "") {
+            return false;
+        }
+
         HandlerMethod method = (HandlerMethod) handler;
 
         var userLogin = method.getMethod().getAnnotation(UserLogin.class);

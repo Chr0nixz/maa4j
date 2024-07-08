@@ -1,22 +1,19 @@
 package top.chr0nix.maa4j.utils;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
-import top.chr0nix.maa4j.entity.AccountEntity;
+import top.chr0nix.maa4j.utils.model.MemoryInfo;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
+@EqualsAndHashCode(callSuper = true)
 @Component
 @Data
-public class DynamicInfo {
+@NoArgsConstructor
+@AllArgsConstructor
+public class DynamicInfo extends MemoryInfo {
 
-    HashMap<String, Integer> deviceStatusMap = new HashMap<>();
 
-    ArrayList<AccountEntity> freeTaskList = new ArrayList<>();
-
-    HashMap<Long, Integer> userSanMap = new HashMap<>();
-
-    HashMap<Long, Integer> userMaxSanMap = new HashMap<>();
 
 }

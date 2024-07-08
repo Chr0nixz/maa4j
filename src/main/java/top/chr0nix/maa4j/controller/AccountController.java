@@ -3,6 +3,7 @@ package top.chr0nix.maa4j.controller;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import top.chr0nix.maa4j.annotation.OwnerVerify;
 import top.chr0nix.maa4j.annotation.UserLogin;
 import top.chr0nix.maa4j.dto.AccountConfigDTO;
 import top.chr0nix.maa4j.dto.AddAccountDTO;
@@ -57,12 +58,14 @@ public class AccountController {
     }
 
     @UserLogin
-    @PostMapping("/config")
+    @OwnerVerify
+    @PostMapping("/config/{account}")
     public Result<String> postConfig(@RequestHeader("Authorization") String token,
-                                     @RequestBody LinkedHashMap<String, Object> accountConfigMap) {
+                                     @RequestBody LinkedHashMap<String, Object> accountConfigMap,
+                                     @PathVariable String account) {
         Gson gson = new Gson();
         AccountConfigDTO accountConfigDTO = gson.fromJson(accountConfigMap.toString(), AccountConfigDTO.class);
-        return accountService.updateConfig(accountConfigDTO, JWTUtils.getId(token));
+        return accountService.updateConfig(accountConfigDTO, JWTUtils.getId(token), account);
     }
 
 }

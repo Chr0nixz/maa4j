@@ -1,13 +1,21 @@
 package top.chr0nix.maa4j.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import top.chr0nix.maa4j.entity.converter.LongListConverter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @Data
+@Accessors(chain = true)
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "user")
 public class UserEntity {
@@ -26,19 +34,19 @@ public class UserEntity {
     @Convert(converter = LongListConverter.class)
     ArrayList<Long> accounts;
 
-    @Column(columnDefinition = "text comment '秘钥'")
-    String game_key;
+    @Column(columnDefinition = "game_key text comment '秘钥'")
+    String gameKey;
 
     @Column(columnDefinition = "boolean default false comment '是否封禁'")
     boolean banned;
 
-    @Column(columnDefinition = "datetime comment '注册时间'", nullable = false)
-    LocalDateTime register_time;
+    @Column(columnDefinition = "register_time datetime comment '注册时间'", nullable = false)
+    LocalDateTime registerTime;
 
-    @Column(columnDefinition = "datetime comment '过期时间'")
-    LocalDateTime expire_time;
+    @Column(columnDefinition = "expire_time datetime comment '过期时间'")
+    LocalDateTime expireTime;
 
-    @Column(columnDefinition = "datetime comment '上次登录时间'")
-    LocalDateTime last_login;
+    @Column(columnDefinition = "last_login datetime comment '上次登录时间'")
+    LocalDateTime lastLogin;
 
 }
