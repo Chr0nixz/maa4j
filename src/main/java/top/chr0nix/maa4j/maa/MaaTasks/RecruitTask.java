@@ -1,27 +1,32 @@
 package top.chr0nix.maa4j.maa.MaaTasks;
 
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public class RecruitTask extends AbstractTask{
+import java.util.ArrayList;
+import java.util.Arrays;
 
-    public RecruitTask(
-            boolean refresh,
-            List<Integer> select,
-            List<Integer> confirm,
-            int times,
-            boolean skipRobot
-    ) {
-        String paramsModel = """
-                {
-                    "refresh": "%s",
-                    "select": %s,
-                    "confirm": %s,
-                    "times": "%s",
-                    "skip_robot": "%s",
-                }
-                """;
-        this.type = "Recruit";
-        this.params = String.format(paramsModel, refresh, select, confirm, times, skipRobot);
-    }
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class RecruitTask extends MaaTask{
+
+    @Builder.Default
+    boolean refresh = true;
+
+    @Builder.Default
+    ArrayList<Integer> select = new ArrayList<>(Arrays.asList(4, 5, 6));
+
+    @Builder.Default
+    ArrayList<Integer> confirm = new ArrayList<>(Arrays.asList(4, 5, 6));
+
+    @Builder.Default
+    int times = 4;
+
+    @Builder.Default
+    boolean skip_robot = false;
 
 }

@@ -5,14 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
-import top.chr0nix.maa4j.entity.config.AccountConfig;
+import top.chr0nix.maa4j.entity.taskConfig.AccountConfig;
 import top.chr0nix.maa4j.entity.converter.AccountConfigConverter;
 
 import java.time.LocalDateTime;
 
 @Data
-@Accessors(chain = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -49,7 +47,7 @@ public class AccountEntity {
     @Column(columnDefinition = "tinyint unsigned default '1' comment '优先级'", nullable = false)
     int priority;
 
-    @Column(columnDefinition = "last_login datetime comment '上次登录时间'")
+    @Column(name = "last_login", columnDefinition = "datetime comment '上次登录时间'")
     LocalDateTime lastLogin;
 
 }

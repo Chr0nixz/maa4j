@@ -1,21 +1,19 @@
 package top.chr0nix.maa4j.maa.MaaTasks;
 
-public class StartUpTask extends AbstractTask{
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    public StartUpTask(
-            String clientType,
-            boolean startGameEnabled,
-            String accountName
-                       ) {
-        String paramsModel = """
-                {
-                    "client_type": "%s",
-                    "start_game_enabled": "%s",
-                    "account_name": "%s"
-                }
-                """;
-        this.type = "StartUp";
-        this.params = String.format(paramsModel, clientType, startGameEnabled, accountName);
-    }
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class StartUpTask extends MaaTask{
+
+    @Builder.Default
+    String client_type = "Official";
+
+    boolean start_game_enabled;
 
 }

@@ -5,16 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class InfrastTask extends MaaTask{
+public class FightTask extends MaaTask{
 
-    ArrayList<String> facility;
+    String stage;
 
-    String drones;
+    @Builder.Default
+    int medicine = 0;
 
 }

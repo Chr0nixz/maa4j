@@ -1,9 +1,9 @@
 package top.chr0nix.maa4j.dto;
 
 import lombok.Data;
-import top.chr0nix.maa4j.entity.config.InfrastConfig;
-import top.chr0nix.maa4j.entity.config.RecruitConfig;
-import top.chr0nix.maa4j.entity.config.fight.FightConfig;
+import top.chr0nix.maa4j.entity.taskConfig.InfrastConfig;
+import top.chr0nix.maa4j.entity.taskConfig.RecruitConfig;
+import top.chr0nix.maa4j.entity.taskConfig.fight.FightConfig;
 
 @Data
 public class AccountConfigDTO {

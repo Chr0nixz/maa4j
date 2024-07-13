@@ -39,12 +39,11 @@ public class UserServiceImpl implements UserService {
         try {
             if (addUserDTO != null){
                 UserEntity userEntity = new UserEntity();
-                var user = addUserDTO;
                 Long id = idGenerator.nextId();
                 //UserEntity userEntity = UserEntity.builder().id(id).name(addUserDTO.getName()).password(addUserDTO.getPassword()).r
                 userEntity.setId(id);
-                userEntity.setName(user.getName());
-                userEntity.setPassword(user.getPassword());
+                userEntity.setName(addUserDTO.getName());
+                userEntity.setPassword(addUserDTO.getPassword());
                 userEntity.setRegisterTime(LocalDateTime.now());
                 userEntity.setGameKey(UUID.randomUUID().toString().replace("-", ""));
                 userRepo.save(userEntity);

@@ -7,7 +7,7 @@ import top.chr0nix.maa4j.dto.AccountConfigDTO;
 import top.chr0nix.maa4j.dto.AddAccountDTO;
 import top.chr0nix.maa4j.entity.AccountEntity;
 import top.chr0nix.maa4j.entity.UserEntity;
-import top.chr0nix.maa4j.entity.config.AccountConfig;
+import top.chr0nix.maa4j.entity.taskConfig.AccountConfig;
 import top.chr0nix.maa4j.exception.account.AccountNotFoundException;
 import top.chr0nix.maa4j.exception.config.WrongFightConfigException;
 import top.chr0nix.maa4j.exception.config.WrongInfrastConfigException;
@@ -81,11 +81,7 @@ public class AccountServiceImpl implements AccountService {
             AccountEntity accountEntity = accountRepo.findFirstById(accountConfigDTO.getAccountId());
             accountEntity.setConfig(accountConfig);
             accountRepo.saveAndFlush(accountEntity);
-        } catch (WrongFightConfigException e) {
-            return Result.paramError(e.getMessage());
-        } catch (WrongInfrastConfigException e) {
-            return Result.paramError(e.getMessage());
-        } catch (WrongRecruitConfigException e) {
+        } catch (WrongFightConfigException | WrongInfrastConfigException | WrongRecruitConfigException e) {
             return Result.paramError(e.getMessage());
         } catch (AccountNotFoundException e){
             return Result.notFound(e.getMessage());
@@ -96,6 +92,13 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Result<String> getConfig(AccountConfigDTO accountConfigDTO, Long ownerId) {
         return null;
+    }
+
+    @Override
+    public String getPassword(AccountEntity accountEntity) throws Exception {
+        UserEntity owner = userService.getUserById(accountEntity.getOwner());
+        String gameKey = owner.getGameKey();
+        return Encoder.aesDecrypt(accountEntity.getPassword(), gameKey);
     }
 
 }

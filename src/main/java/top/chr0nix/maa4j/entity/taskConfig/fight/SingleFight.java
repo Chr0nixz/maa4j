@@ -1,4 +1,4 @@
-package top.chr0nix.maa4j.entity.config.fight;
+package top.chr0nix.maa4j.entity.taskConfig.fight;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

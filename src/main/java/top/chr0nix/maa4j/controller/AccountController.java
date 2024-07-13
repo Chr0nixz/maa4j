@@ -50,10 +50,12 @@ public class AccountController {
     @UserLogin
     @PostMapping("/start")
     public Result<String> start(@RequestHeader("Authorization") String token) {
+        /*
         String account = JWTUtils.getId(token).toString();
         maaService.createInstance(JWTUtils.getId(token).toString(), "127.0.0.1:16384", null);
         System.out.println(maaService.appendTask(account, new StartUpTask("Official", false, "114514")));
         maaService.start(account);
+        */
         return Result.success();
     }
 

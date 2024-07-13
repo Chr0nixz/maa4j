@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @Data
-@Accessors(chain = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,19 +33,19 @@ public class UserEntity {
     @Convert(converter = LongListConverter.class)
     ArrayList<Long> accounts;
 
-    @Column(columnDefinition = "game_key text comment '秘钥'")
+    @Column(name = "game_key", columnDefinition = "text comment '秘钥'")
     String gameKey;
 
     @Column(columnDefinition = "boolean default false comment '是否封禁'")
     boolean banned;
 
-    @Column(columnDefinition = "register_time datetime comment '注册时间'", nullable = false)
+    @Column(name = "register_time", columnDefinition = "datetime comment '注册时间'", nullable = false)
     LocalDateTime registerTime;
 
-    @Column(columnDefinition = "expire_time datetime comment '过期时间'")
+    @Column(name = "expire_time", columnDefinition = "datetime comment '过期时间'")
     LocalDateTime expireTime;
 
-    @Column(columnDefinition = "last_login datetime comment '上次登录时间'")
+    @Column(name = "last_login", columnDefinition = "datetime comment '上次登录时间'")
     LocalDateTime lastLogin;
 
 }

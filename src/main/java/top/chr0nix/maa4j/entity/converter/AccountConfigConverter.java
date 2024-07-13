@@ -2,7 +2,7 @@ package top.chr0nix.maa4j.entity.converter;
 
 import com.google.gson.Gson;
 import jakarta.persistence.AttributeConverter;
-import top.chr0nix.maa4j.entity.config.AccountConfig;
+import top.chr0nix.maa4j.entity.taskConfig.AccountConfig;
 
 public class AccountConfigConverter implements AttributeConverter<AccountConfig, String> {
 

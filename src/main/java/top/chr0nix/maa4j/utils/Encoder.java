@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Arrays;
 
 public class Encoder {
 
@@ -20,22 +21,22 @@ public class Encoder {
 
     public static SecretKey generateKey(String seed) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         aesGenerator = KeyGenerator.getInstance("AES");
-        aesGenerator.init(new SecureRandom(seed.getBytes("UTF-8")));
+        aesGenerator.init(new SecureRandom(seed.getBytes(StandardCharsets.UTF_8)));
         return aesGenerator.generateKey();
     }
 
     public static String aesEncrypt(String plainText, String seed) throws Exception {
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.ENCRYPT_MODE, generateKey(seed));
-        byte[] result = cipher.doFinal(plainText.getBytes("UTF-8"));
-        return result.toString();
+        byte[] result = cipher.doFinal(plainText.getBytes(StandardCharsets.UTF_8));
+        return Arrays.toString(result);
     }
 
     public static String aesDecrypt(String cipherText, String seed) throws Exception {
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.DECRYPT_MODE, generateKey(seed));
-        byte[] result = cipher.doFinal(cipherText.getBytes("UTF-8"));
-        return result.toString();
+        byte[] result = cipher.doFinal(cipherText.getBytes(StandardCharsets.UTF_8));
+        return Arrays.toString(result);
     }
 
 }

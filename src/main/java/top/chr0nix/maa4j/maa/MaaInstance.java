@@ -1,6 +1,8 @@
 package top.chr0nix.maa4j.maa;
 
 import com.sun.jna.Pointer;
+import top.chr0nix.maa4j.maa.MaaTasks.MaaTask;
+import top.chr0nix.maa4j.utils.MaaTaskHandler;
 
 public class MaaInstance {
 
@@ -25,12 +27,14 @@ public class MaaInstance {
         this.pointer = maaCore.AsstCreateEx(callback, account);
     }
 
-    public boolean connect(){
+    public boolean connect() {
         maaCore.AsstConnect(pointer, adbPath, host, config);
         return true;
     }
 
-    public int appendTask(String type, String params){
+    public int appendTask(MaaTask task) {
+        String type = MaaTaskHandler.getTaskType(task);
+        String params = MaaTaskHandler.getTaskParams(task);
         return maaCore.AsstAppendTask(pointer, type, params);
     }
 

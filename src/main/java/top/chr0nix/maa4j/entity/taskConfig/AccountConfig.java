@@ -1,13 +1,11 @@
-package top.chr0nix.maa4j.entity.config;
+package top.chr0nix.maa4j.entity.taskConfig;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import top.chr0nix.maa4j.dto.AccountConfigDTO;
-import top.chr0nix.maa4j.entity.config.fight.FightConfig;
+import top.chr0nix.maa4j.entity.taskConfig.fight.FightConfig;
 import top.chr0nix.maa4j.exception.config.WrongFightConfigException;
-import top.chr0nix.maa4j.exception.config.WrongInfrastConfigException;
-import top.chr0nix.maa4j.exception.config.WrongRecruitConfigException;
 
 @Data
 @AllArgsConstructor
@@ -27,7 +25,6 @@ public class AccountConfig {
     RecruitConfig recruitConfig;
 
     public void loadDTO(AccountConfigDTO accountConfigDTO) {
-
         enableFight = accountConfigDTO.isEnableFight();
         enableInfrast = accountConfigDTO.isEnableInfrast();
         enableRecruit = accountConfigDTO.isEnableRecruit();
