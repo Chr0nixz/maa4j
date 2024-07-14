@@ -21,7 +21,7 @@ spring:
 maa4j:
   secret: "maa"
   ignore_auth: true
-  maa-path: "D:\\maa4j\\maa"
-  adb-path: "D:\\maa4j\\maa\\adb\\platform-tools\\adb.exe"
+  maa_path: "D:\\maa4j\\maa"
+  adb_path: "D:\\maa4j\\maa\\adb\\platform-tools\\adb.exe"
   devices:
     - "60.174.193.249:8848"

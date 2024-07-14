@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class MaaServiceImpl implements MaaService {
 
-    @Value("${maa4j.adb-path}")
+    @Value("${maa4j.adb_path}")
     String adbPath;
 
     MaaCore.AsstApiCallback callback = new MaaCallback();

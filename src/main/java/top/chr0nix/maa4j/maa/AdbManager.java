@@ -10,9 +10,9 @@ import java.io.InputStreamReader;
 @Component
 public class AdbManager {
 
-    @Value("${maa4j.adb-path}")
+    @Value("${maa4j.adb_path}")
     private String adbPath;
-    private Runtime runtime;
+    private final Runtime runtime;
 
     public AdbManager() {
         this.adbPath = this.adbPath + " ";
@@ -22,7 +22,7 @@ public class AdbManager {
     public boolean isAdbAvailable() throws IOException {
         BufferedReader reader = null;
         try {
-            Process version = this.runtime.exec( adbPath + "version");
+            Process version = this.runtime.exec(new String[]{adbPath, "version"});
             reader = new BufferedReader(new InputStreamReader(version.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {

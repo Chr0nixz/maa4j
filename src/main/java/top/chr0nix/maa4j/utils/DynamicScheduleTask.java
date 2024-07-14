@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import top.chr0nix.maa4j.service.intf.TaskService;
 import top.chr0nix.maa4j.utils.model.AccountTask;
 
-import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -45,7 +44,7 @@ public class DynamicScheduleTask implements SchedulingConfigurer {
                             try {
                                 preQueue.add(taskService.getAccountTask(waitQueue.poll()));
                             } catch (Exception e) {
-                                continue;
+                                System.out.println(e.getMessage());
                             }
                         }
                     }
