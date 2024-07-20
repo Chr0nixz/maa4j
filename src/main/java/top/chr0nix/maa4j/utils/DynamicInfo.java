@@ -7,14 +7,13 @@ import org.springframework.stereotype.Component;
 import top.chr0nix.maa4j.entity.AccountEntity;
 import top.chr0nix.maa4j.repository.AccountRepository;
 import top.chr0nix.maa4j.utils.model.MemoryInfo;
+import top.chr0nix.maa4j.utils.model.UserSan;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 @Component
 @Data
-@Accessors(chain = true)
-@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class DynamicInfo extends MemoryInfo {
@@ -54,6 +53,14 @@ public class DynamicInfo extends MemoryInfo {
             list.add(accountRepo.findFirstById(accountId));
         }
         return list;
+    }
+
+    public void setAccountSanZero(Long accountId) {
+        if (getAccountSanInfoMap().containsKey(accountId)) {
+            getAccountSanInfoMap().get(accountId).setCurSan(0);
+        } else {
+            getAccountSanInfoMap().put(accountId, new UserSan(0, 135));
+        }
     }
 
     public void addAccountSan(Long accountId, int san) {

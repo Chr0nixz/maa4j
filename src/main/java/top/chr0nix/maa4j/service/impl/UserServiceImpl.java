@@ -38,14 +38,13 @@ public class UserServiceImpl implements UserService {
     public Result<String> addUser(AddUserDTO addUserDTO) {
         try {
             if (addUserDTO != null){
-                UserEntity userEntity = new UserEntity();
                 Long id = idGenerator.nextId();
-                //UserEntity userEntity = UserEntity.builder().id(id).name(addUserDTO.getName()).password(addUserDTO.getPassword()).r
-                userEntity.setId(id);
-                userEntity.setName(addUserDTO.getName());
-                userEntity.setPassword(addUserDTO.getPassword());
-                userEntity.setRegisterTime(LocalDateTime.now());
-                userEntity.setGameKey(UUID.randomUUID().toString().replace("-", ""));
+                UserEntity userEntity = UserEntity.builder()
+                        .id(id)
+                        .password(addUserDTO.getPassword())
+                        .registerTime(LocalDateTime.now())
+                        .gameKey(UUID.randomUUID().toString().replace("-", ""))
+                        .build();
                 userRepo.save(userEntity);
                 return Result.success();
             } else {

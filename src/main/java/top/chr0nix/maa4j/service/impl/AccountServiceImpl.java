@@ -16,9 +16,11 @@ import top.chr0nix.maa4j.message.ConfigMessages;
 import top.chr0nix.maa4j.repository.AccountRepository;
 import top.chr0nix.maa4j.service.intf.AccountService;
 import top.chr0nix.maa4j.service.intf.UserService;
-import top.chr0nix.maa4j.utils.Encoder;
+import top.chr0nix.maa4j.utils.AESUtils;
 import top.chr0nix.maa4j.utils.Result;
 import top.chr0nix.maa4j.utils.SnowFlake;
+
+import java.time.LocalDateTime;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -51,7 +53,7 @@ public class AccountServiceImpl implements AccountService {
                     .id(id)
                     .account(addAccountDTO.getAccount())
                     .owner(ownerId)
-                    .password(Encoder.aesEncrypt(addAccountDTO.getPassword(), user.getGameKey()))
+                    .password(AESUtils.encrypt(addAccountDTO.getPassword(), user.getGameKey()))
                     .build();
             accountRepo.save(account);
             userService.addAccountToUser(account.getId(), account.getOwner());
@@ -98,7 +100,12 @@ public class AccountServiceImpl implements AccountService {
     public String getPassword(AccountEntity accountEntity) throws Exception {
         UserEntity owner = userService.getUserById(accountEntity.getOwner());
         String gameKey = owner.getGameKey();
-        return Encoder.aesDecrypt(accountEntity.getPassword(), gameKey);
+        return AESUtils.decrypt(accountEntity.getPassword(), gameKey);
+    }
+
+    @Override
+    public void gameLogin(String account) {
+        accountRepo.saveAndFlush(accountRepo.findFirstByAccount(account).setLastLogin(LocalDateTime.now()));
     }
 
 }

@@ -18,6 +18,7 @@ public class AccountTask {
 
     String password;
 
+    @Builder.Default
     ArrayList<MaaTask> tasks = new ArrayList<>();
 
 }

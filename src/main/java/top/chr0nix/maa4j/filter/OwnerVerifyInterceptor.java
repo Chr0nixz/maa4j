@@ -32,7 +32,7 @@ public class OwnerVerifyInterceptor implements HandlerInterceptor {
         }
 
         String token = request.getHeader("Authorization");
-        if (token == "") {
+        if (Objects.equals(token, "")) {
             return false;
         }
 

@@ -31,7 +31,7 @@ public class AccountEntity {
     @Column(columnDefinition = "bigint comment '用户id'", nullable = false)
     Long owner;
 
-    @Column(columnDefinition = "boolean default false comment '是否运行'")
+    @Column(columnDefinition = "boolean default true comment '是否运行'")
     boolean running;
 
     @Column(columnDefinition = "boolean default false comment '是否封禁'")

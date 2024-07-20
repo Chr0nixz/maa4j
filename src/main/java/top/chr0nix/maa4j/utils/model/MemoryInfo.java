@@ -17,12 +17,13 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemoryInfo {
+
     @Builder.Default
     ConcurrentLinkedQueue<Long> waitAccountQueue = new ConcurrentLinkedQueue<>();
     @Builder.Default
     ConcurrentLinkedQueue<AccountTask> preAccountQueue = new ConcurrentLinkedQueue<>();
     @Builder.Default
-    List<Long> workAccountList = Collections.synchronizedList(new ArrayList<>());
+    List<String> workAccountList = Collections.synchronizedList(new ArrayList<>());
 
     @Builder.Default
     HashMap<Long, UserSan> accountSanInfoMap = new HashMap<>();

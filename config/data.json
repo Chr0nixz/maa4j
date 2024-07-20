@@ -1,0 +1,14 @@
+{
+  "waitAccountQueue": [],
+  "preAccountQueue": [],
+  "workAccountList": [],
+  "accountSanInfoMap": {
+    "1814547759857012736": {
+      "curSan": 0,
+      "maxSan": 135
+    }
+  },
+  "deviceStatusMap": {
+    "localhost:16384": 1
+  }
+}

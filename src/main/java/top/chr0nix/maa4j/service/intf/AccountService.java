@@ -18,4 +18,6 @@ public interface AccountService {
 
     String getPassword(AccountEntity accountEntity) throws Exception;
 
+    void gameLogin(String account);
+
 }

@@ -1,6 +1,7 @@
 package top.chr0nix.maa4j.maa;
 
 import com.sun.jna.Pointer;
+import jakarta.annotation.PreDestroy;
 import top.chr0nix.maa4j.maa.MaaTasks.MaaTask;
 import top.chr0nix.maa4j.utils.MaaTaskHandler;
 
@@ -40,6 +41,11 @@ public class MaaInstance {
 
     public void start(){
         maaCore.AsstStart(pointer);
+    }
+
+    @PreDestroy
+    public void destroy() {
+        maaCore.AsstDestroy(pointer);
     }
 
 }

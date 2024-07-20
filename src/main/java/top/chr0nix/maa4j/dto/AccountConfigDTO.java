@@ -16,10 +16,10 @@ public class AccountConfigDTO {
 
     boolean enableRecruit;
 
-    FightConfig fightConfig;
+    FightConfig fightConfig = new FightConfig();
 
-    InfrastConfig infrastConfig;
+    InfrastConfig infrastConfig = new InfrastConfig();
 
-    RecruitConfig recruitConfig;
+    RecruitConfig recruitConfig = new RecruitConfig();
 
 }

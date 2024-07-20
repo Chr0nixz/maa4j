@@ -13,6 +13,8 @@ public class Maa4jProperties {
 
     String secret;
 
+    boolean use_data;
+
     boolean ignore_auth;
 
     String maa_path;

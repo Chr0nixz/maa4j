@@ -14,4 +14,5 @@ public interface AccountRepository extends JpaRepository<AccountEntity, Long> {
     List<AccountEntity> findAccountEntitiesByRunningEqualsOrderByPriority(boolean running);
 
     AccountEntity findFirstById(Long accountId);
+
 }

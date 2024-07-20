@@ -59,10 +59,16 @@ public class TaskServiceImpl implements TaskService {
         AccountTask accountTask = AccountTask.builder().account(accountEntity.getAccount())
                 .password(accountService.getPassword(accountEntity)).build();
         AccountConfig accountConfig = accountEntity.getConfig();
-        accountTask.getTasks().add(accountConfig.getRecruitConfig().getTask().getFirst());
-        accountTask.getTasks().add(accountConfig.getInfrastConfig().getTask().getFirst());
-        accountTask.getTasks().addAll(accountConfig.getFightConfig().getTask());
-        accountTaskCache.put(accountId, accountTask);
+        if (accountConfig.isEnableRecruit()) {
+            accountTask.getTasks().add(accountConfig.getRecruitConfig().getTask().getFirst());
+        }
+        if (accountConfig.isEnableInfrast()) {
+            accountTask.getTasks().add(accountConfig.getInfrastConfig().getTask().getFirst());
+        }
+        if (accountConfig.isEnableFight()) {
+            accountTask.getTasks().addAll(accountConfig.getFightConfig().getTask());
+        }
+        //accountTaskCache.put(accountId, accountTask);
         return accountTask;
     }
 
