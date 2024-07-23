@@ -18,19 +18,31 @@ public class AccountConfig {
 
     boolean enableRecruit;
 
-    FightConfig fightConfig;
+    boolean enableMall;
 
-    InfrastConfig infrastConfig;
+    boolean enableAward;
 
-    RecruitConfig recruitConfig;
+    FightConfig fightConfig = new FightConfig();
+
+    InfrastConfig infrastConfig = new InfrastConfig();
+
+    RecruitConfig recruitConfig = new RecruitConfig();
+
+    MallConfig mallConfig = new MallConfig();
+
+    AwardConfig awardConfig = new AwardConfig();
 
     public void loadDTO(AccountConfigDTO accountConfigDTO) {
         enableFight = accountConfigDTO.isEnableFight();
         enableInfrast = accountConfigDTO.isEnableInfrast();
         enableRecruit = accountConfigDTO.isEnableRecruit();
+        enableMall = accountConfigDTO.isEnableMall();
+        enableAward = accountConfigDTO.isEnableAward();
         fightConfig = accountConfigDTO.getFightConfig();
         infrastConfig = accountConfigDTO.getInfrastConfig();
         recruitConfig = accountConfigDTO.getRecruitConfig();
+        mallConfig = accountConfigDTO.getMallConfig();
+        awardConfig = accountConfigDTO.getAwardConfig();
         if (enableFight) {
             if (fightConfig == null || !fightConfig.check()) {
                 throw new WrongFightConfigException();
@@ -43,6 +55,16 @@ public class AccountConfig {
         }
         if (enableRecruit) {
             if (recruitConfig == null || !recruitConfig.check()) {
+                throw new WrongFightConfigException();
+            }
+        }
+        if (enableMall) {
+            if (mallConfig == null || !mallConfig.check()) {
+                throw new WrongFightConfigException();
+            }
+        }
+        if (enableAward) {
+            if (awardConfig == null || !awardConfig.check()) {
                 throw new WrongFightConfigException();
             }
         }

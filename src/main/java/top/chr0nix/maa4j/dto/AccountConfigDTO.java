@@ -1,7 +1,9 @@
 package top.chr0nix.maa4j.dto;
 
 import lombok.Data;
+import top.chr0nix.maa4j.entity.taskConfig.AwardConfig;
 import top.chr0nix.maa4j.entity.taskConfig.InfrastConfig;
+import top.chr0nix.maa4j.entity.taskConfig.MallConfig;
 import top.chr0nix.maa4j.entity.taskConfig.RecruitConfig;
 import top.chr0nix.maa4j.entity.taskConfig.fight.FightConfig;
 
@@ -16,10 +18,18 @@ public class AccountConfigDTO {
 
     boolean enableRecruit;
 
-    FightConfig fightConfig = new FightConfig();
+    boolean enableMall;
 
-    InfrastConfig infrastConfig = new InfrastConfig();
+    boolean enableAward;
 
-    RecruitConfig recruitConfig = new RecruitConfig();
+    FightConfig fightConfig;
+
+    InfrastConfig infrastConfig;
+
+    RecruitConfig recruitConfig;
+
+    MallConfig mallConfig;
+
+    AwardConfig awardConfig;
 
 }
