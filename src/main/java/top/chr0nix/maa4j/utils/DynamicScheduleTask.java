@@ -44,7 +44,7 @@ public class DynamicScheduleTask implements SchedulingConfigurer {
         //队列升级
         taskRegistrar.addTriggerTask(
                 scheduleService::queuePromote,
-                triggerContext -> new CronTrigger("0/5 * * * * ?").nextExecution(triggerContext)
+                triggerContext -> new CronTrigger("5/5 * * * * ?").nextExecution(triggerContext)
         );
 
     }

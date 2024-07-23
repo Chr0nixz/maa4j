@@ -2,9 +2,11 @@ package top.chr0nix.maa4j.maa;
 
 import com.sun.jna.Pointer;
 import jakarta.annotation.PreDestroy;
+import lombok.Data;
 import top.chr0nix.maa4j.maa.MaaTasks.MaaTask;
 import top.chr0nix.maa4j.utils.MaaTaskHandler;
 
+@Data
 public class MaaInstance {
 
     public static MaaCore maaCore;

@@ -14,7 +14,7 @@ public interface AccountService {
 
     Result<String> updateConfig(AccountConfigDTO accountConfigDTO, Long ownerId, String account);
 
-    Result<String> getConfig(AccountConfigDTO accountConfigDTO, Long ownerId);
+    Result<String> getConfig(String account, Long ownerId);
 
     String getPassword(AccountEntity accountEntity) throws Exception;
 

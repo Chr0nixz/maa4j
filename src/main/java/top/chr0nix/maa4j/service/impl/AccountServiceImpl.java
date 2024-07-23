@@ -1,5 +1,6 @@
 package top.chr0nix.maa4j.service.impl;
 
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -92,12 +93,14 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Result<String> getConfig(AccountConfigDTO accountConfigDTO, Long ownerId) {
-        return null;
+    public Result<String> getConfig(String account, Long ownerId) {
+        AccountConfig accountConfig = accountRepo.findFirstByAccount(account).getConfig();
+        Gson gson = new Gson();
+        return Result.success(gson.toJson(accountConfig), "成功");
     }
 
     @Override
-    public String getPassword(AccountEntity accountEntity) throws Exception {
+    public String getPassword(AccountEntity accountEntity) {
         UserEntity owner = userService.getUserById(accountEntity.getOwner());
         String gameKey = owner.getGameKey();
         return AESUtils.decrypt(accountEntity.getPassword(), gameKey);

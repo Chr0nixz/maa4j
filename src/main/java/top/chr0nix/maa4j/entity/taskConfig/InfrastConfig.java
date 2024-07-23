@@ -23,7 +23,7 @@ public class InfrastConfig extends TaskConfig {
     @Override
     public boolean check() {
         if (facility == null) {
-            ArrayList<String> facility = new ArrayList<>(Arrays.asList(
+            facility = new ArrayList<>(Arrays.asList(
                     "Mfg",
                     "Trade",
                     "Power",

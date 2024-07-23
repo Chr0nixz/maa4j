@@ -33,12 +33,19 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public String applyDevice() {
+        for (Map.Entry<String, Integer> entry : dynamicInfo.getDeviceStatusMap().entrySet()) {
+            if (entry.getValue() == 1) {
+                String device = entry.getKey();
+                dynamicInfo.getDeviceStatusMap().put(device, 2);
+                return device;
+            }
+        }
         return "";
     }
 
     @Override
     public void releaseDevice(String device) {
-
+        dynamicInfo.getDeviceStatusMap().put(device, 1);
     }
 
     @Override

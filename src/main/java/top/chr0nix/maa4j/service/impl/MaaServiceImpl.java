@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import top.chr0nix.maa4j.maa.MaaCallback;
-import top.chr0nix.maa4j.maa.MaaCore;
 import top.chr0nix.maa4j.maa.MaaInstance;
 import top.chr0nix.maa4j.maa.MaaTasks.MaaTask;
 import top.chr0nix.maa4j.service.intf.AccountService;
@@ -15,6 +14,7 @@ import top.chr0nix.maa4j.utils.model.AccountTask;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
@@ -44,7 +44,7 @@ public class MaaServiceImpl implements MaaService {
     public boolean startTask(AccountTask accountTask) {
         String account = accountTask.getAccount();
         String device = deviceService.applyDevice();
-        if (device == null) {
+        if (Objects.equals(device, "")) {
             return false;
         }
         if (createInstance(account, device, account)) {
@@ -86,6 +86,7 @@ public class MaaServiceImpl implements MaaService {
 
     @Override
     public void destroyInstance(String account) {
+        deviceService.releaseDevice(instancePool.get(account).getHost());
         instancePool.remove(account);
         dynamicInfo.getWorkAccountList().remove(account);
     }
