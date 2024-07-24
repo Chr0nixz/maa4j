@@ -7,6 +7,7 @@ import top.chr0nix.maa4j.dto.AddUserDTO;
 import top.chr0nix.maa4j.dto.UserLoginDTO;
 import top.chr0nix.maa4j.entity.UserEntity;
 import top.chr0nix.maa4j.exception.user.UserNotFoundException;
+import top.chr0nix.maa4j.message.UserMessages;
 import top.chr0nix.maa4j.repository.UserRepository;
 import top.chr0nix.maa4j.service.intf.UserService;
 import top.chr0nix.maa4j.utils.JWTUtils;
@@ -46,27 +47,27 @@ public class UserServiceImpl implements UserService {
                         .gameKey(UUID.randomUUID().toString().replace("-", ""))
                         .build();
                 userRepo.save(userEntity);
-                return Result.success();
+                return Result.success(UserMessages.ADD_USER_SUCCESS);
             } else {
-                return Result.paramError("参数有误");
+                return Result.paramError(UserMessages.USER_PARAM_ERROR);
             }
         } catch (DataIntegrityViolationException e) {
-            return Result.failed("用户已存在!");
+            return Result.failed(UserMessages.USER_EXISTS);
         }
     }
 
     @Override
     public Result<String> loginUser(UserLoginDTO userLoginDTO) {
         if (userLoginDTO.getName() == null || userLoginDTO.getPassword() == null) {
-            return Result.paramError("用户名和密码不能为空！");
+            return Result.paramError(UserMessages.EMPTY_NAME_OR_PASSWORD);
         }
         var user = userRepo.findFirstByNameAndPassword(userLoginDTO.getName(), userLoginDTO.getPassword());
         if (user != null) {
             user.setLastLogin(LocalDateTime.now());
             userRepo.saveAndFlush(user);
-            return Result.success(JWTUtils.generateTokenForUser(user), "登录成功！");
+            return Result.success(JWTUtils.generateTokenForUser(user), UserMessages.USER_LOGIN_SUCCESS);
         } else  {
-            return  Result.failed("用户名或密码错误！");
+            return  Result.failed(UserMessages.WRONG_NAME_OR_PASSWORD);
         }
     }
 
@@ -85,7 +86,7 @@ public class UserServiceImpl implements UserService {
         UserEntity user = userRepo.findById(userId).orElseThrow(UserNotFoundException::new);
         ArrayList<Long> accounts = user.getAccounts();
         if (accounts == null) {
-            accounts = new ArrayList<Long>(List.of(accountId));
+            accounts = new ArrayList<>(List.of(accountId));
         }else {
             accounts.add(accountId);
         }

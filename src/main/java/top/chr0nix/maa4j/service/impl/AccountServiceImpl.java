@@ -13,6 +13,7 @@ import top.chr0nix.maa4j.exception.account.AccountNotFoundException;
 import top.chr0nix.maa4j.exception.config.WrongFightConfigException;
 import top.chr0nix.maa4j.exception.config.WrongInfrastConfigException;
 import top.chr0nix.maa4j.exception.config.WrongRecruitConfigException;
+import top.chr0nix.maa4j.message.AccountMessages;
 import top.chr0nix.maa4j.message.ConfigMessages;
 import top.chr0nix.maa4j.repository.AccountRepository;
 import top.chr0nix.maa4j.service.intf.AccountService;
@@ -58,11 +59,11 @@ public class AccountServiceImpl implements AccountService {
                     .build();
             accountRepo.save(account);
             userService.addAccountToUser(account.getId(), account.getOwner());
-            return Result.success("添加成功！");
+            return Result.success(AccountMessages.ADD_ACCOUNT_SUCCESS);
         } catch (DataIntegrityViolationException e) {
-            return Result.failed("账号已存在！");
+            return Result.failed(AccountMessages.ACCOUNT_EXISTS);
         } catch (Exception e) {
-            return Result.failed("添加失败!");
+            return Result.failed(AccountMessages.ADD_ACCOUNT_FAILED);
         }
     }
 

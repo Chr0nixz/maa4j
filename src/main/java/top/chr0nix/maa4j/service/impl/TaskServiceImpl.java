@@ -20,7 +20,7 @@ public class TaskServiceImpl implements TaskService {
     private AccountRepository accountRepo;
     private AccountService accountService;
     private DynamicInfo dynamicInfo;
-    private ConcurrentHashMap<Long, AccountTask> accountTaskCache = new ConcurrentHashMap<>();
+    //private ConcurrentHashMap<Long, AccountTask> accountTaskCache = new ConcurrentHashMap<>();
 
     @Autowired
     public void setAccountRepo(AccountRepository repo) {
@@ -52,9 +52,9 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public AccountTask getAccountTask(Long accountId) throws Exception {
-        if (accountTaskCache.containsKey(accountId)){
-            return accountTaskCache.get(accountId);
-        }
+        //if (accountTaskCache.containsKey(accountId)){
+        //    return accountTaskCache.get(accountId);
+        //}
         AccountEntity accountEntity = accountRepo.findFirstById(accountId);
         AccountTask accountTask = AccountTask.builder().account(accountEntity.getAccount())
                 .password(accountService.getPassword(accountEntity)).build();
