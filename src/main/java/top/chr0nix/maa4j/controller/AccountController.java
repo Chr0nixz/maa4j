@@ -33,18 +33,6 @@ public class AccountController {
     }
 
     @UserLogin
-    @PostMapping("/start")
-    public Result<String> start(@RequestHeader("Authorization") String token) {
-        /*
-        String account = JWTUtils.getId(token).toString();
-        maaService.createInstance(JWTUtils.getId(token).toString(), "127.0.0.1:16384", null);
-        System.out.println(maaService.appendTask(account, new StartUpTask("Official", false, "114514")));
-        maaService.start(account);
-        */
-        return Result.success();
-    }
-
-    @UserLogin
     @OwnerVerify
     @PostMapping("/config/{account}")
     public Result<String> postConfig(@RequestHeader("Authorization") String token,
@@ -57,10 +45,18 @@ public class AccountController {
 
     @UserLogin
     @OwnerVerify
-    @GetMapping("config/{account}")
+    @GetMapping("/config/{account}")
     public Result<String> getConfig(@RequestHeader("Authorization") String token,
                                     @PathVariable String account) {
-        return accountService.getConfig(account, JWTUtils.getId(token));
+        return accountService.getConfig(account);
+    }
+
+    @UserLogin
+    @OwnerVerify
+    @PostMapping("/start/{account}")
+    public Result<String> startAccount(@RequestHeader("Authorization") String token,
+                                       @PathVariable String account) {
+        return accountService.startAccount(account);
     }
 
 }

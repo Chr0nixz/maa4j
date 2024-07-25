@@ -87,6 +87,11 @@ public class RunScript implements ApplicationRunner {
         maaCore = load;
         System.out.println("maa连接初始化完毕！");
 
+        if (adbManager.isAdbAvailable()) {
+            System.out.println("adb连接正常！");
+        }
+
+
         System.out.println("maa4j初始化完成！");
     }
 

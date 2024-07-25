@@ -34,7 +34,7 @@ public class AdbManager {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         } finally {
             if (reader != null) {
                 reader.close();

@@ -94,7 +94,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Result<String> getConfig(String account, Long ownerId) {
+    public Result<String> getConfig(String account) {
         AccountConfig accountConfig = accountRepo.findFirstByAccount(account).getConfig();
         Gson gson = new Gson();
         return Result.success(gson.toJson(accountConfig), "成功");
@@ -110,6 +110,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void gameLogin(String account) {
         accountRepo.saveAndFlush(accountRepo.findFirstByAccount(account).setLastLogin(LocalDateTime.now()));
+    }
+
+    @Override
+    public Result<String> startAccount(String account) {
+        return null;
     }
 
 }

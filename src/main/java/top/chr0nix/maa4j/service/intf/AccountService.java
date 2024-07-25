@@ -14,10 +14,12 @@ public interface AccountService {
 
     Result<String> updateConfig(AccountConfigDTO accountConfigDTO, Long ownerId, String account);
 
-    Result<String> getConfig(String account, Long ownerId);
+    Result<String> getConfig(String account);
 
     String getPassword(AccountEntity accountEntity) throws Exception;
 
     void gameLogin(String account);
+
+    Result<String> startAccount(String account);
 
 }

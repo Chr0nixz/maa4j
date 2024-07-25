@@ -14,4 +14,6 @@ public interface UserMessages {
 
     String WRONG_NAME_OR_PASSWORD = "用户名或密码错误！";
 
+    String UNKNOWN_USER = "未知用户！";
+
 }
