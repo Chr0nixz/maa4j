@@ -8,4 +8,8 @@ public interface AccountMessages {
 
     String ADD_ACCOUNT_FAILED = "游戏账号添加失败！";
 
+    String ACCOUNT_BANNED = "账号被封禁！";
+
+    String ACCOUNT_NOT_FOUND = "账号不存在！";
+
 }

@@ -115,7 +115,6 @@ public class Result<T> implements Serializable {
         return restResult(data, ResponseCodeConstants.FAIL, msg);
     }
 
-
     public static <T> Result<T> restResult(T data, int code, String msg) {
         Result<T> apiResult = new Result<>();
         apiResult.setCode(code);
@@ -123,7 +122,6 @@ public class Result<T> implements Serializable {
         apiResult.setMsg(msg);
         return apiResult;
     }
-
 
     @JsonIgnore
     public Boolean isDataNull() {

@@ -2,6 +2,7 @@ package top.chr0nix.maa4j.service.impl;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.chr0nix.maa4j.entity.AccountEntity;
@@ -17,6 +18,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Service
@@ -70,26 +72,23 @@ public class ScheduleServiceImpl implements ScheduleService {
         taskService.calculateSan();
     }
 
+    @SneakyThrows
     @Override
-    public void queuePromote() {
+    public void queuePromote(){
         ConcurrentLinkedQueue<Long> waitQueue = dynamicInfo.getWaitAccountQueue();
         ConcurrentLinkedQueue<AccountTask> preQueue = dynamicInfo.getPreAccountQueue();
         int preCount = dynamicInfo.getPreAccountQueue().size();
         int deviceCount = deviceService.getDeviceCountFree();
         if (preCount < deviceCount) {
             for (int i = 0 ; i < deviceCount - preCount ; i++) {
-                try {
-                    if (!waitQueue.isEmpty()) {
-                        preQueue.add(taskService.getAccountTask(waitQueue.poll()));
-                    }
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                if (!waitQueue.isEmpty()) {
+                    preQueue.add(taskService.getAccountTask(waitQueue.poll()));
                 }
             }
         }
         if (!dynamicInfo.getPreAccountQueue().isEmpty()){
             if (maaService.startTask(dynamicInfo.getPreAccountQueue().peek())){
-                dynamicInfo.getWorkAccountList().add(dynamicInfo.getPreAccountQueue().poll().getAccount());
+                dynamicInfo.getWorkAccountList().add(Objects.requireNonNull(dynamicInfo.getPreAccountQueue().poll()).getAccount());
             }
         }
         Gson gson = new GsonBuilder().setPrettyPrinting().create();

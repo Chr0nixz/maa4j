@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 @Data
 @Builder
@@ -22,6 +21,10 @@ public class AdminEntity {
     @Column(columnDefinition = "bigint unsigned auto_increment comment '主键'", nullable = false)
     Long id;
 
+    @Column(columnDefinition = "varchar(255) unique comment '用户名'", nullable = false)
+    String name;
 
+    @Column(columnDefinition = "text comment '密码'", nullable = false)
+    String password;
 
 }

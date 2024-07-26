@@ -46,16 +46,14 @@ public class AccountController {
     @UserLogin
     @OwnerVerify
     @GetMapping("/config/{account}")
-    public Result<String> getConfig(@RequestHeader("Authorization") String token,
-                                    @PathVariable String account) {
+    public Result<String> getConfig(@PathVariable String account) {
         return accountService.getConfig(account);
     }
 
     @UserLogin
     @OwnerVerify
     @PostMapping("/start/{account}")
-    public Result<String> startAccount(@RequestHeader("Authorization") String token,
-                                       @PathVariable String account) {
+    public Result<String> startAccount(@PathVariable String account) {
         return accountService.startAccount(account);
     }
 

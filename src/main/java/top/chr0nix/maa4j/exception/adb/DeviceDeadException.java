@@ -1,13 +1,12 @@
 package top.chr0nix.maa4j.exception.adb;
 
-public class DeviceDeadException extends RuntimeException{
+import top.chr0nix.maa4j.exception.Maa4jInnerException;
+import top.chr0nix.maa4j.message.AdbMessages;
 
-    public DeviceDeadException(String message){
-        super(message);
-    }
+public class DeviceDeadException extends Maa4jInnerException {
 
-    public DeviceDeadException(){
-        super("设备掉线！");
+    public DeviceDeadException(String device){
+        super(AdbMessages.DEVICE_DEAD + device);
     }
 
 }

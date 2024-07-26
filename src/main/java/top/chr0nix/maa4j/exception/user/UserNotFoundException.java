@@ -1,13 +1,19 @@
 package top.chr0nix.maa4j.exception.user;
 
-public class UserNotFoundException extends RuntimeException{
+import top.chr0nix.maa4j.constant.ResponseCodeConstants;
+import top.chr0nix.maa4j.exception.Maa4jWebException;
+import top.chr0nix.maa4j.message.UserMessages;
+
+public class UserNotFoundException extends Maa4jWebException {
 
     public UserNotFoundException(String message){
         super(message);
+        this.code = ResponseCodeConstants.NOT_FOUND;
     }
 
     public UserNotFoundException(){
-        super("用户不存在！");
+        super(UserMessages.UNKNOWN_USER);
+        this.code = ResponseCodeConstants.NOT_FOUND;
     }
 
 }

@@ -1,7 +1,6 @@
 package top.chr0nix.maa4j.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import top.chr0nix.maa4j.dto.AddUserDTO;
 import top.chr0nix.maa4j.dto.UserLoginDTO;
@@ -26,33 +25,29 @@ public class UserServiceImpl implements UserService {
     private SnowFlake idGenerator;
 
     @Autowired
-    public void setUserRepo(UserRepository repo){
+    public void setUserRepo(UserRepository repo) {
         this.userRepo = repo;
     }
 
     @Autowired
-    public void setIdGenerator(SnowFlake snowFlake){
+    public void setIdGenerator(SnowFlake snowFlake) {
         this.idGenerator = snowFlake;
     }
 
     @Override
     public Result<String> addUser(AddUserDTO addUserDTO) {
-        try {
-            if (addUserDTO != null){
-                Long id = idGenerator.nextId();
-                UserEntity userEntity = UserEntity.builder()
-                        .id(id)
-                        .password(addUserDTO.getPassword())
-                        .registerTime(LocalDateTime.now())
-                        .gameKey(UUID.randomUUID().toString().replace("-", ""))
-                        .build();
-                userRepo.save(userEntity);
-                return Result.success(UserMessages.ADD_USER_SUCCESS);
-            } else {
-                return Result.paramError(UserMessages.USER_PARAM_ERROR);
-            }
-        } catch (DataIntegrityViolationException e) {
-            return Result.failed(UserMessages.USER_EXISTS);
+        if (addUserDTO != null) {
+            Long id = idGenerator.nextId();
+            UserEntity userEntity = UserEntity.builder()
+                    .id(id)
+                    .password(addUserDTO.getPassword())
+                    .registerTime(LocalDateTime.now())
+                    .gameKey(UUID.randomUUID().toString().replace("-", ""))
+                    .build();
+            userRepo.save(userEntity);
+            return Result.success(UserMessages.ADD_USER_SUCCESS);
+        } else {
+            return Result.paramError(UserMessages.USER_PARAM_ERROR);
         }
     }
 

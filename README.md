@@ -24,6 +24,7 @@ Maa适配进度：
 - [ ] 自动战斗
 
 Todo:
+- [x] 更完备的异常处理机制
 - [ ] 解决maa截图失败的问题
 - [ ] 自定义换号
 - [ ] 插队功能
@@ -69,6 +70,8 @@ maa4j:
 java -jar .../maa4j-latest.jar
 ```
 
+### 已知问题
+- MAA连接似乎会报 ScreencapFailed 错误
 
 
 ## 友情链接
