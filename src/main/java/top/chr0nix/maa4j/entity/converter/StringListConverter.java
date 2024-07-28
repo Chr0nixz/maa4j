@@ -1,8 +1,11 @@
 package top.chr0nix.maa4j.entity.converter;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import jakarta.persistence.AttributeConverter;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StringListConverter implements AttributeConverter<List<String>, String> {
@@ -15,6 +18,7 @@ public class StringListConverter implements AttributeConverter<List<String>, Str
     @Override
     public List<String> convertToEntityAttribute(String s) {
         Gson gson = new Gson();
-        return gson.fromJson(s, List.class);
+        Type type = new TypeToken<ArrayList<String>>(){}.getType();
+        return gson.fromJson(s, type);
     }
 }

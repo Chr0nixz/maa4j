@@ -45,7 +45,9 @@ spring:
     url: （数据库连接地址）
     username: （数据库用户名）
     password: （对应的密码）
-
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   jpa:
     database: mysql
     show-sql: true

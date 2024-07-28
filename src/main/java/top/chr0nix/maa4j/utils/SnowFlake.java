@@ -1,9 +1,7 @@
 package top.chr0nix.maa4j.utils;
 
 import lombok.Getter;
-import org.springframework.stereotype.Component;
 
-@Component
 public class SnowFlake {
 
     //下面两个每个5位，加起来就是10位的工作机器id

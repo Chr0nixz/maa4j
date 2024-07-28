@@ -4,23 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import top.chr0nix.maa4j.filter.JwtTokenInterceptor;
 import top.chr0nix.maa4j.filter.OwnerVerifyInterceptor;
 
 @Configuration
-public class WebConfig implements WebMvcConfigurer {
+public class WebConfig extends WebMvcConfigurationSupport {
 
-    private JwtTokenInterceptor jwtTokenInterceptor;
-    private OwnerVerifyInterceptor ownerVerifyInterceptor;
+    private final JwtTokenInterceptor jwtTokenInterceptor;
+    private final OwnerVerifyInterceptor ownerVerifyInterceptor;
 
     @Autowired
-    public void setJwtTokenInterceptor(JwtTokenInterceptor jwtTokenInterceptor) {
+    public WebConfig(JwtTokenInterceptor jwtTokenInterceptor,
+                     OwnerVerifyInterceptor ownerVerifyInterceptor) {
         this.jwtTokenInterceptor = jwtTokenInterceptor;
-    }
-
-    @Autowired
-    public void setOwnerVerifyInterceptor(OwnerVerifyInterceptor ownerVerifyInterceptor) {
         this.ownerVerifyInterceptor = ownerVerifyInterceptor;
     }
 

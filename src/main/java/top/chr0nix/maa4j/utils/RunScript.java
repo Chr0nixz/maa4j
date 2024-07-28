@@ -92,6 +92,8 @@ public class RunScript implements ApplicationRunner {
         }
 
 
+
+
         System.out.println("maa4j初始化完成！");
     }
 

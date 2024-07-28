@@ -2,6 +2,8 @@ server:
   port: 8848
 
 spring:
+  main:
+    allow-bean-definition-overriding: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/maa4j?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
@@ -15,8 +17,24 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: top.chr0nix.maa4j.controller
+
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
 
 maa4j:
   secret: "maa"

@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
             Long id = idGenerator.nextId();
             UserEntity userEntity = UserEntity.builder()
                     .id(id)
+                    .name(addUserDTO.getName())
                     .password(addUserDTO.getPassword())
                     .registerTime(LocalDateTime.now())
                     .gameKey(UUID.randomUUID().toString().replace("-", ""))

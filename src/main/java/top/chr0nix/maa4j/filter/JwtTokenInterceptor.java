@@ -21,7 +21,7 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(@NonNull HttpServletRequest request,
                              @NonNull HttpServletResponse response,
-                             @NonNull Object handler){
+                             @NonNull Object handler) {
         if (!(handler instanceof HandlerMethod method)) {
             return true;
         }
@@ -33,6 +33,7 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
         String token = request.getHeader("Authorization");
 
         if (Objects.equals(token, "")) {
+            response.setStatus(401);
             return false;
         }
 

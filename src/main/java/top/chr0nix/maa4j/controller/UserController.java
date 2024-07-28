@@ -24,7 +24,7 @@ public class UserController {
         return userService.loginUser(userLoginDTO);
     }
 
-    @RequestMapping("/register")
+    @PostMapping("/register")
     public Result<String> addUser(@RequestBody AddUserDTO userDTO){
         return userService.addUser(userDTO);
     }

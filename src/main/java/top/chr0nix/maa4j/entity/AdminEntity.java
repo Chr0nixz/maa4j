@@ -1,13 +1,12 @@
 package top.chr0nix.maa4j.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import top.chr0nix.maa4j.entity.converter.AdminAuthorityConverter;
+import top.chr0nix.maa4j.utils.model.AdminAuthority;
 
 @Data
 @Builder
@@ -26,5 +25,9 @@ public class AdminEntity {
 
     @Column(columnDefinition = "text comment '密码'", nullable = false)
     String password;
+
+    @Column(columnDefinition = "text comment '权限'", nullable = false)
+    @Convert(converter = AdminAuthorityConverter.class)
+    AdminAuthority authority;
 
 }
