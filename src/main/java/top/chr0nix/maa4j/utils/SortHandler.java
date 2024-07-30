@@ -1,16 +1,22 @@
 package top.chr0nix.maa4j.utils;
 
 import org.springframework.data.domain.Sort;
-import top.chr0nix.maa4j.dto.SortDTO;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SortHandler {
 
-    public static Sort getSort(SortDTO sortDTO) {
-        return switch (sortDTO.getDirection()) {
-            case 0 -> Sort.by(Sort.Order.asc(sortDTO.getProperty()));
-            case 1 -> Sort.by(Sort.Order.desc(sortDTO.getProperty()));
-            default -> Sort.by(Sort.Order.asc("ID"));
-        };
+    public static Sort getSort(HashMap<String, Integer> hashMap) {
+        ArrayList<Sort.Order> orders = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : hashMap.entrySet()) {
+            switch (entry.getValue()) {
+                case 0 -> orders.add(Sort.Order.asc(entry.getKey()));
+                case 1 -> orders.add(Sort.Order.desc(entry.getKey()));
+            }
+        }
+        return Sort.by(orders);
     }
 
 }

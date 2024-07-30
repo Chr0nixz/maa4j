@@ -21,7 +21,7 @@ public class UserController {
 
     @PostMapping("/login")
     public Result<String> userLogin(@RequestBody UserLoginDTO userLoginDTO){
-        return userService.loginUser(userLoginDTO);
+        return userService.loginUser(userLoginDTO.getName(), userLoginDTO.getPassword());
     }
 
     @PostMapping("/register")

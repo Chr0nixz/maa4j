@@ -53,15 +53,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result<String> loginUser(UserLoginDTO userLoginDTO) {
-        if (userLoginDTO.getName() == null || userLoginDTO.getPassword() == null) {
+    public Result<String> loginUser(String name, String password) {
+        if (name == null || password == null) {
             return Result.paramError(UserMessages.EMPTY_NAME_OR_PASSWORD);
         }
-        var user = userRepo.findFirstByNameAndPassword(userLoginDTO.getName(), userLoginDTO.getPassword());
+        var user = userRepo.findFirstByNameAndPassword(name, password);
         if (user != null) {
             user.setLastLogin(LocalDateTime.now());
             userRepo.saveAndFlush(user);
-            return Result.success(JWTUtils.generateTokenForUser(user), UserMessages.USER_LOGIN_SUCCESS);
+            return Result.success(JWTUtils.generateTokenForUser(user), UserMessages.LOGIN_SUCCESS);
         } else  {
             return  Result.failed(UserMessages.WRONG_NAME_OR_PASSWORD);
         }

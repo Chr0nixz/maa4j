@@ -5,6 +5,6 @@ import top.chr0nix.maa4j.entity.AdminEntity;
 
 public interface AdminRepository extends JpaRepository<AdminEntity, Long> {
 
-
+    AdminEntity findFirstByNameAndPassword(String name, String password);
 
 }

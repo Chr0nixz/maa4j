@@ -3,11 +3,13 @@ package top.chr0nix.maa4j.utils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.google.gson.Gson;
 import top.chr0nix.maa4j.entity.AdminEntity;
 import top.chr0nix.maa4j.entity.UserEntity;
-import top.chr0nix.maa4j.entity.converter.AdminAuthorityConverter;
+import top.chr0nix.maa4j.entity.converter.AuthorityHashMapConverter;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class JWTUtils {
 
@@ -26,7 +28,7 @@ public class JWTUtils {
 
     public static String generateTokenForAdmin(AdminEntity adminEntity) {
         JWTCreator.Builder builder = JWT.create();
-        AdminAuthorityConverter converter = new AdminAuthorityConverter();
+        AuthorityHashMapConverter converter = new AuthorityHashMapConverter();
         builder.withClaim("id", adminEntity.getId())
                 .withClaim("name", adminEntity.getName())
                 .withClaim("type", "admin")
@@ -54,13 +56,21 @@ public class JWTUtils {
     }
 
     public static String getName(String token){
-        assert token!= null;
+        assert token != null;
         return JWT.decode(token).getClaim("name").asString();
     }
 
     public static String getType(String token){
         assert token != null;
         return JWT.decode(token).getClaim("type").asString();
+    }
+
+    public static String getAuth(String token) {
+        assert token != null;
+        if (!Objects.equals(getType(token), "admin")) {
+            return null;
+        }
+        return JWT.decode(token).getClaim("auth").asString();
     }
 
 }

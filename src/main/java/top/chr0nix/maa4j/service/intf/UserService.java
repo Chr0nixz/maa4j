@@ -9,7 +9,7 @@ public interface UserService {
 
     Result<String> addUser(AddUserDTO user);
 
-    Result<String> loginUser(UserLoginDTO userLoginDTO);
+    Result<String> loginUser(String name, String password);
 
     UserEntity getUserById(Long id);
 

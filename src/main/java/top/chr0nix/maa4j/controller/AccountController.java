@@ -11,7 +11,7 @@ import top.chr0nix.maa4j.service.intf.AccountService;
 import top.chr0nix.maa4j.utils.JWTUtils;
 import top.chr0nix.maa4j.utils.Result;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/account")
@@ -36,7 +36,7 @@ public class AccountController {
     @OwnerVerify
     @PostMapping("/config/{account}")
     public Result<String> postConfig(@RequestHeader("Authorization") String token,
-                                     @RequestBody LinkedHashMap<String, Object> accountConfigMap,
+                                     @RequestBody HashMap<String, Object> accountConfigMap,
                                      @PathVariable String account) {
         Gson gson = new Gson();
         AccountConfigDTO accountConfigDTO = gson.fromJson(accountConfigMap.toString(), AccountConfigDTO.class);

@@ -8,16 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+import top.chr0nix.maa4j.constant.AdminAuthority;
 import top.chr0nix.maa4j.entity.AccountEntity;
+import top.chr0nix.maa4j.entity.AdminEntity;
 import top.chr0nix.maa4j.maa.AdbManager;
 import top.chr0nix.maa4j.maa.MaaCore;
 import top.chr0nix.maa4j.repository.AccountRepository;
+import top.chr0nix.maa4j.repository.AdminRepository;
 import top.chr0nix.maa4j.service.intf.DeviceService;
 import top.chr0nix.maa4j.service.intf.ScheduleService;
 import top.chr0nix.maa4j.utils.model.Maa4jProperties;
 import top.chr0nix.maa4j.utils.model.MemoryInfo;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,6 +37,7 @@ public class RunScript implements ApplicationRunner {
     private final AccountRepository accountRepo;
     private final ScheduleService scheduleService;
     private final DeviceService deviceService;
+    private final AdminRepository adminRepository;
 
     private final String dataPath = System.getProperty("user.dir") + File.separator + "config" + File.separator + "data.json";
 
@@ -42,13 +47,15 @@ public class RunScript implements ApplicationRunner {
                      AdbManager adbManager,
                      AccountRepository accountRepo,
                      ScheduleService scheduleService,
-                     DeviceService deviceService) {
+                     DeviceService deviceService,
+                     AdminRepository adminRepository) {
         this.maa4jProperties = maa4jProperties;
         this.dynamicInfo = dynamicInfo;
         this.adbManager = adbManager;
         this.accountRepo = accountRepo;
         this.scheduleService = scheduleService;
         this.deviceService = deviceService;
+        this.adminRepository = adminRepository;
     }
 
     @Override
@@ -91,7 +98,18 @@ public class RunScript implements ApplicationRunner {
             System.out.println("adb连接正常！");
         }
 
-
+        System.out.println("生成超级管理员账号：admin, 密码：maa4j");
+        if (adminRepository.count() == 0L) {
+            HashMap<String, Boolean> hashMap = new HashMap<>();
+            hashMap.put(AdminAuthority.SUPER, true);
+            AdminEntity adminEntity = AdminEntity.builder()
+                    .id(0L)
+                    .name("admin")
+                    .password("maa4j")
+                    .authority(hashMap)
+                    .build();
+            adminRepository.saveAndFlush(adminEntity);
+        }
 
 
         System.out.println("maa4j初始化完成！");

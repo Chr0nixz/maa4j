@@ -5,8 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import top.chr0nix.maa4j.entity.converter.AdminAuthorityConverter;
-import top.chr0nix.maa4j.utils.model.AdminAuthority;
+import top.chr0nix.maa4j.entity.converter.AuthorityHashMapConverter;
+
+import java.util.HashMap;
 
 @Data
 @Builder
@@ -17,7 +18,7 @@ import top.chr0nix.maa4j.utils.model.AdminAuthority;
 public class AdminEntity {
 
     @Id
-    @Column(columnDefinition = "bigint unsigned auto_increment comment '主键'", nullable = false)
+    @Column(columnDefinition = "bigint unsigned comment '主键'", nullable = false)
     Long id;
 
     @Column(columnDefinition = "varchar(255) unique comment '用户名'", nullable = false)
@@ -27,7 +28,7 @@ public class AdminEntity {
     String password;
 
     @Column(columnDefinition = "text comment '权限'", nullable = false)
-    @Convert(converter = AdminAuthorityConverter.class)
-    AdminAuthority authority;
+    @Convert(converter = AuthorityHashMapConverter.class)
+    HashMap<String, Boolean> authority;
 
 }

@@ -1,5 +1,7 @@
 package top.chr0nix.maa4j.filter;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,9 +9,13 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+import top.chr0nix.maa4j.annotation.Authority;
 import top.chr0nix.maa4j.annotation.UserLogin;
+import top.chr0nix.maa4j.constant.AdminAuthority;
 import top.chr0nix.maa4j.utils.JWTUtils;
 
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.Objects;
 
 @Component
@@ -37,7 +43,10 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        var userLogin = method.getMethod().getAnnotation(UserLogin.class);
+        var func = method.getMethod();
+
+        //用户登录
+        var userLogin = func.getAnnotation(UserLogin.class);
         if (userLogin != null) {
             if (JWTUtils.verifyToken(token) && Objects.equals(JWTUtils.getType(token), "user")) {
                 return true;
@@ -46,6 +55,36 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
                 return false;
             }
         }
+
+        //管理员权限检查
+        var authority = func.getAnnotation(Authority.class);
+        if (authority != null) {
+            if (!JWTUtils.verifyToken(token)) {
+                response.setStatus(401);
+                return false;
+            }
+            if (!Objects.equals(JWTUtils.getType(token), "admin")){
+                response.setStatus(401);
+                return false;
+            }
+            String authString = JWTUtils.getAuth(token);
+            if (authString == null) {
+                return false;
+            }
+            Gson gson = new Gson();
+            Type type = new TypeToken<HashMap<String, Boolean>>(){}.getType();
+            HashMap<String, Boolean> authMap = gson.fromJson(authString, type);
+            if (authMap.get(AdminAuthority.SUPER)) {
+                return true;
+            }
+            for (String str : authority.value()) {
+                if (!Objects.equals(authMap.get(str), true)) {
+                    return false;
+                }
+            }
+        }
+
+
         return true;
     }
 
