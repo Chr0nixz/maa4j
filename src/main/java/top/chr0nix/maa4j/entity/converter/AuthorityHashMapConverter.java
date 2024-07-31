@@ -5,7 +5,6 @@ import com.google.gson.reflect.TypeToken;
 import jakarta.persistence.AttributeConverter;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AuthorityHashMapConverter implements AttributeConverter<HashMap<String, Boolean>, String> {

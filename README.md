@@ -48,6 +48,8 @@ spring:
     username: （数据库用户名）
     password: （对应的密码）
   mvc:
+    converters:
+      preferred-json-mapper: gson
     pathmatch:
       matching-strategy: ant_path_matcher
   jpa:
@@ -59,6 +61,23 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: top.chr0nix.maa4j.controller
+
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
 
 maa4j:
   secret: "maa"（改为任意字符串，可不填）
