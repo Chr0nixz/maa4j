@@ -2,7 +2,6 @@ package top.chr0nix.maa4j.service.impl;
 
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import top.chr0nix.maa4j.dto.AccountConfigDTO;
 import top.chr0nix.maa4j.dto.AddAccountDTO;
@@ -57,6 +56,12 @@ public class AccountServiceImpl implements AccountService {
         accountRepo.save(account);
         userService.addAccountToUser(account.getId(), account.getOwner());
         return Result.success(AccountMessages.ADD_ACCOUNT_SUCCESS);
+    }
+
+    @Override
+    public Result<String> deleteAccount(String account) {
+        accountRepo.deleteByAccount(account);
+        return Result.success(AccountMessages.ACCOUNT_DELETE_SUCCESS);
     }
 
     @Override

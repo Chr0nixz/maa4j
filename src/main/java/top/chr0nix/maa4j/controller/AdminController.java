@@ -45,4 +45,10 @@ public class AdminController {
         return adminService.readAccounts(getPageDTO.getPageNum() - 1, getPageDTO.getSize(), SortHandler.getSort(getPageDTO.getOrders()));
     }
 
+    @Authority
+    @GetMapping("/devices")
+    public  Result<String> readDevices() {
+        return adminService.readDevices();
+    }
+
 }

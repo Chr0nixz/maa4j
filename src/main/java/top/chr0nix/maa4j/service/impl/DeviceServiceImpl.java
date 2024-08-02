@@ -6,6 +6,7 @@ import top.chr0nix.maa4j.maa.AdbManager;
 import top.chr0nix.maa4j.service.intf.DeviceService;
 import top.chr0nix.maa4j.utils.DynamicInfo;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -74,4 +75,5 @@ public class DeviceServiceImpl implements DeviceService {
         }
         return count;
     }
+
 }

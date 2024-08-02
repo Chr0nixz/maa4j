@@ -51,9 +51,6 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public AccountTask getAccountTask(Long accountId) throws Exception {
-        //if (accountTaskCache.containsKey(accountId)){
-        //    return accountTaskCache.get(accountId);
-        //}
         AccountEntity accountEntity = accountRepo.findFirstById(accountId);
         AccountTask accountTask = AccountTask.builder().account(accountEntity.getAccount())
                 .password(accountService.getPassword(accountEntity)).build();
@@ -67,7 +64,6 @@ public class TaskServiceImpl implements TaskService {
         if (accountConfig.isEnableFight()) {
             accountTask.getTasks().addAll(accountConfig.getFightConfig().getTask());
         }
-        //accountTaskCache.put(accountId, accountTask);
         return accountTask;
     }
 

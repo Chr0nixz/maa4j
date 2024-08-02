@@ -18,11 +18,11 @@ import java.util.HashMap;
 @ResponseBody
 public class AccountController {
 
-    private AccountService accountService;
+    private final AccountService accountService;
 
     @Autowired
-    public void setAccountService(AccountService service){
-        this.accountService = service;
+    public AccountController(AccountService accountService) {
+        this.accountService = accountService;
     }
 
     @UserLogin
@@ -30,6 +30,13 @@ public class AccountController {
     public Result<String> addAccount(@RequestHeader("Authorization") String token,
                              @RequestBody AddAccountDTO accountDTO) {
         return accountService.addAccount(accountDTO, JWTUtils.getId(token));
+    }
+
+    @UserLogin
+    @OwnerVerify
+    @DeleteMapping("/delete/{account}")
+    public Result<String> deleteAccount(@PathVariable String account) {
+        return accountService.deleteAccount(account);
     }
 
     @UserLogin

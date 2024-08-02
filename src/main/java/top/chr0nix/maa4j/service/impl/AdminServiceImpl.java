@@ -1,7 +1,6 @@
 package top.chr0nix.maa4j.service.impl;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,15 +10,16 @@ import org.springframework.stereotype.Service;
 import top.chr0nix.maa4j.entity.AccountEntity;
 import top.chr0nix.maa4j.entity.UserEntity;
 import top.chr0nix.maa4j.message.AdminMessages;
-import top.chr0nix.maa4j.message.UserMessages;
+import top.chr0nix.maa4j.message.GlobalMessages;
 import top.chr0nix.maa4j.repository.AccountRepository;
 import top.chr0nix.maa4j.repository.AdminRepository;
 import top.chr0nix.maa4j.repository.UserRepository;
 import top.chr0nix.maa4j.service.intf.AdminService;
+import top.chr0nix.maa4j.utils.DynamicInfo;
 import top.chr0nix.maa4j.utils.JWTUtils;
 import top.chr0nix.maa4j.utils.Result;
 
-import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -27,16 +27,19 @@ public class AdminServiceImpl implements AdminService {
     private final AdminRepository adminRepository;
     private final UserRepository userRepository;
     private final AccountRepository accountRepository;
+    private final DynamicInfo dynamicInfo;
     private final Gson gson;
 
     @Autowired
     public AdminServiceImpl(AdminRepository adminRepository,
                             UserRepository userRepository,
                             AccountRepository accountRepository,
+                            DynamicInfo dynamicInfo,
                             Gson gson) {
         this.adminRepository = adminRepository;
         this.userRepository = userRepository;
         this.accountRepository = accountRepository;
+        this.dynamicInfo = dynamicInfo;
         this.gson = gson;
     }
 
@@ -50,6 +53,7 @@ public class AdminServiceImpl implements AdminService {
         if (admin == null) {
             return Result.notFound(AdminMessages.WRONG_NAME_OR_PASSWORD);
         }
+        admin.setLoginKey(UUID.randomUUID().toString().replace("-", ""));
         return Result.success(JWTUtils.generateTokenForAdmin(admin), AdminMessages.LOGIN_SUCCESS);
     }
 
@@ -65,5 +69,10 @@ public class AdminServiceImpl implements AdminService {
         Pageable pageable = PageRequest.of(pageNum, size, sort);
         Page<AccountEntity> page = accountRepository.findAll(pageable);
         return Result.success(gson.toJson(page.getContent()), "");
+    }
+
+    @Override
+    public Result<String> readDevices() {
+        return Result.success(dynamicInfo.getDeviceStatusMap().toString(), GlobalMessages.SUCCESS);
     }
 }

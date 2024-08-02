@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import top.chr0nix.maa4j.maa.MaaCallback;
+import top.chr0nix.maa4j.maa.MaaCore;
 import top.chr0nix.maa4j.maa.MaaInstance;
 import top.chr0nix.maa4j.maa.MaaTasks.MaaTask;
 import top.chr0nix.maa4j.service.intf.AccountService;
@@ -25,6 +26,7 @@ public class MaaServiceImpl implements MaaService {
 
     private final MaaCallback callback = new MaaCallback(this);
 
+    private final MaaCore maaCore;
     private final DeviceService deviceService;
     private final DynamicInfo dynamicInfo;
     private final AccountService accountService;
@@ -32,13 +34,16 @@ public class MaaServiceImpl implements MaaService {
     private final ConcurrentHashMap<String, MaaInstance> instancePool = new ConcurrentHashMap<>();
 
     @Autowired
-    public MaaServiceImpl(DeviceService deviceService,
+    public MaaServiceImpl(MaaCore maaCore,
+                          DeviceService deviceService,
                           DynamicInfo dynamicInfo,
                           AccountService accountService) {
+        this.maaCore = maaCore;
         this.deviceService = deviceService;
         this.dynamicInfo = dynamicInfo;
         this.accountService = accountService;
     }
+
 
     @Override
     public boolean startTask(AccountTask accountTask) {
@@ -47,7 +52,7 @@ public class MaaServiceImpl implements MaaService {
         if (Objects.equals(device, "")) {
             return false;
         }
-        if (createInstance(account, device, account)) {
+        if (createInstance(account, device, "")) {
             appendTasks(account, accountTask.getTasks());
         }
         startInstance(account);
@@ -57,7 +62,7 @@ public class MaaServiceImpl implements MaaService {
 
     @Override
     public boolean createInstance(String account, String host, String config){
-        MaaInstance maaInstance = new MaaInstance(account, adbPath, host, config, callback);
+        MaaInstance maaInstance = new MaaInstance(maaCore, account, adbPath, host, config, callback);
         if (maaInstance.connect()) {
             instancePool.put(account, maaInstance);
         }

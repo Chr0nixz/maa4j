@@ -2,7 +2,6 @@ package top.chr0nix.maa4j.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sun.jna.Native;
 import jakarta.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -12,7 +11,6 @@ import top.chr0nix.maa4j.constant.AdminAuthority;
 import top.chr0nix.maa4j.entity.AccountEntity;
 import top.chr0nix.maa4j.entity.AdminEntity;
 import top.chr0nix.maa4j.maa.AdbManager;
-import top.chr0nix.maa4j.maa.MaaCore;
 import top.chr0nix.maa4j.repository.AccountRepository;
 import top.chr0nix.maa4j.repository.AdminRepository;
 import top.chr0nix.maa4j.service.intf.DeviceService;
@@ -26,7 +24,6 @@ import java.util.List;
 import java.util.UUID;
 
 import static top.chr0nix.maa4j.utils.JWTUtils.SECRET;
-import static top.chr0nix.maa4j.maa.MaaInstance.maaCore;
 
 @Component
 public class RunScript implements ApplicationRunner {
@@ -87,12 +84,6 @@ public class RunScript implements ApplicationRunner {
             SECRET = UUID.randomUUID().toString().replace("-", "");
             System.out.println("随机秘钥:" + SECRET);
         }
-
-        System.setProperty("jna.library.path", maaPath);
-        MaaCore load = Native.load("MaaCore", MaaCore.class);
-        load.AsstLoadResource(maaPath);
-        maaCore = load;
-        System.out.println("maa连接初始化完毕！");
 
         if (adbManager.isAdbAvailable()) {
             System.out.println("adb连接正常！");

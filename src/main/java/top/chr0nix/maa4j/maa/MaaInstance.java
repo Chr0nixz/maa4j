@@ -9,20 +9,22 @@ import top.chr0nix.maa4j.utils.MaaTaskHandler;
 @Data
 public class MaaInstance {
 
-    public static MaaCore maaCore;
     private final Pointer pointer;
+    private final MaaCore maaCore;
     private final String adbPath;
     private final String host;
     private final String config;
     private final String account;
 
     public MaaInstance(
+            MaaCore maaCore,
             String account,
             String adbPath,
             String host,
             String config,
             MaaCore.AsstApiCallback callback
     ) {
+        this.maaCore = maaCore;
         this.account = account;
         this.adbPath = adbPath;
         this.host = host;

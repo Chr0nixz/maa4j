@@ -8,6 +8,7 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 
 public class AuthorityHashMapConverter implements AttributeConverter<HashMap<String, Boolean>, String> {
+
     @Override
     public String convertToDatabaseColumn(HashMap<String, Boolean> stringBooleanHashMap) {
         Gson gson = new Gson();
@@ -20,4 +21,5 @@ public class AuthorityHashMapConverter implements AttributeConverter<HashMap<Str
         Type type = new TypeToken<HashMap<String, Boolean>>(){}.getType();
         return gson.fromJson(string, type);
     }
+
 }

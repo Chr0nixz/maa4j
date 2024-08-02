@@ -15,4 +15,6 @@ public interface AccountRepository extends JpaRepository<AccountEntity, Long> {
 
     AccountEntity findFirstById(Long accountId);
 
+    void deleteByAccount(String account);
+
 }

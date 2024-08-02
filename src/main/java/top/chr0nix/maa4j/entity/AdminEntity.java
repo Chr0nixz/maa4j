@@ -27,6 +27,9 @@ public class AdminEntity {
     @Column(columnDefinition = "text comment '密码'", nullable = false)
     String password;
 
+    @Column(name = "login_key", columnDefinition = "text comment '登录秘钥'")
+    String loginKey;
+
     @Column(columnDefinition = "text comment '权限'", nullable = false)
     @Convert(converter = AuthorityHashMapConverter.class)
     HashMap<String, Boolean> authority;

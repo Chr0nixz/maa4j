@@ -71,20 +71,27 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
             if (authString == null) {
                 return false;
             }
+            String[] requires = authority.value();
+            if (Objects.equals(requires[0], "")) {
+                String string = "can" + func.getName();
+                if (AdminAuthority.ALL.contains(string)) {
+                    requires = new String[]{string};
+                } else {
+                    requires = new String[]{AdminAuthority.SUPER};
+                }
+            }
             Gson gson = new Gson();
             Type type = new TypeToken<HashMap<String, Boolean>>(){}.getType();
             HashMap<String, Boolean> authMap = gson.fromJson(authString, type);
             if (authMap.get(AdminAuthority.SUPER)) {
                 return true;
             }
-            for (String str : authority.value()) {
+            for (String str : requires) {
                 if (!Objects.equals(authMap.get(str), true)) {
                     return false;
                 }
             }
         }
-
-
         return true;
     }
 

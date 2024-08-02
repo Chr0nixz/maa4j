@@ -46,4 +46,3 @@ maa4j:
   maa_path: "D:\\maa4j\\maa"
   adb_path: "D:\\maa4j\\maa\\adb\\platform-tools\\adb.exe"
   devices:
-    - "localhost:16384"

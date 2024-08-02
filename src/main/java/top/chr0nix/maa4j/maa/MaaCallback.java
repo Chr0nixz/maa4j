@@ -4,7 +4,7 @@ import top.chr0nix.maa4j.service.intf.MaaService;
 
 public class MaaCallback implements MaaCore.AsstApiCallback {
 
-    private MaaService maaService;
+    private final MaaService maaService;
 
     public MaaCallback(MaaService maaService) {
         this.maaService = maaService;

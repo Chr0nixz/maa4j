@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 import top.chr0nix.maa4j.entity.converter.LongListConverter;
 
 import java.time.LocalDateTime;
@@ -33,8 +32,11 @@ public class UserEntity {
     @Convert(converter = LongListConverter.class)
     ArrayList<Long> accounts;
 
-    @Column(name = "game_key", columnDefinition = "text comment '秘钥'")
+    @Column(name = "game_key", columnDefinition = "text comment '账号秘钥'")
     String gameKey;
+
+    @Column(name = "login_key", columnDefinition = "text comment '登录秘钥'")
+    String loginKey;
 
     @Column(columnDefinition = "boolean default false comment '是否封禁'")
     boolean banned;

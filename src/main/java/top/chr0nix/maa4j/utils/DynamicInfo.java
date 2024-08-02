@@ -1,7 +1,6 @@
 package top.chr0nix.maa4j.utils;
 
 import lombok.*;
-import lombok.experimental.Accessors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import top.chr0nix.maa4j.entity.AccountEntity;

@@ -12,4 +12,6 @@ public interface AccountMessages {
 
     String ACCOUNT_NOT_FOUND = "账号不存在！";
 
+    String ACCOUNT_DELETE_SUCCESS = "账号删除成功！";
+
 }

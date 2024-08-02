@@ -3,7 +3,6 @@ package top.chr0nix.maa4j.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.chr0nix.maa4j.dto.AddUserDTO;
-import top.chr0nix.maa4j.dto.UserLoginDTO;
 import top.chr0nix.maa4j.entity.UserEntity;
 import top.chr0nix.maa4j.exception.user.UserNotFoundException;
 import top.chr0nix.maa4j.message.UserMessages;
@@ -59,6 +58,9 @@ public class UserServiceImpl implements UserService {
         }
         var user = userRepo.findFirstByNameAndPassword(name, password);
         if (user != null) {
+            if (user.getLoginKey() == null) {
+                user.setLoginKey(UUID.randomUUID().toString().replace("-", ""));
+            }
             user.setLastLogin(LocalDateTime.now());
             userRepo.saveAndFlush(user);
             return Result.success(JWTUtils.generateTokenForUser(user), UserMessages.LOGIN_SUCCESS);

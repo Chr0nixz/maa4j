@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StringListConverter implements AttributeConverter<List<String>, String> {
+
     @Override
     public String convertToDatabaseColumn(List<String> stringList) {
         Gson gson = new Gson();

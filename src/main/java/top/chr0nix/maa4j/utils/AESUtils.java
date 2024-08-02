@@ -14,7 +14,7 @@ public class AESUtils {
 
     private static final String DEFAULT_CHARSET = "UTF-8";
     private static final String KEY_AES = "AES";
-    private static String KEY = "";
+    private static final String KEY = "";
 
     public static String encrypt(String data, String key) {
         return doAES(data, key, Cipher.ENCRYPT_MODE);
@@ -83,8 +83,8 @@ public class AESUtils {
 
     public static String parseByte2HexStr(byte[] buf) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < buf.length; i++) {
-            String hex = Integer.toHexString(buf[i] & 0xFF);
+        for (byte b : buf) {
+            String hex = Integer.toHexString(b & 0xFF);
             if (hex.length() == 1) {
                 hex = '0' + hex;
             }

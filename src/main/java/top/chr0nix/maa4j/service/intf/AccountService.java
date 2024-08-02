@@ -10,6 +10,8 @@ public interface AccountService {
 
     Result<String> addAccount(AddAccountDTO addAccountDTO, Long ownerId);
 
+    Result<String> deleteAccount(String account);
+
     Long getIdByAccount(String account) throws AccountNotFoundException;
 
     Result<String> updateConfig(AccountConfigDTO accountConfigDTO, Long ownerId, String account);

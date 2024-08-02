@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import top.chr0nix.maa4j.exception.Maa4jWebException;
 import top.chr0nix.maa4j.utils.Result;
 
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -21,7 +25,19 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public Result<String> handleRuntimeException(RuntimeException e) {
         if (e instanceof DataIntegrityViolationException) {
-            return Result.failed("重复！");
+            Pattern r = Pattern.compile("(?<=').+?(?=')");
+            Matcher m = r.matcher(e.getMessage());
+            ArrayList<String> arrayList = new ArrayList<>();
+            while (m.find()) {
+                arrayList.add(m.group());
+            }
+            Result<String> result;
+            switch (arrayList.get(2)) {
+                case "user.name" -> result = Result.failed("用户名重复！");
+                case "account.account" -> result = Result.failed("账户已存在！");
+                default -> result = Result.failed("重复！");
+            }
+            return result;
         }
         return Result.failed("未知错误!" + e.getClass().getSimpleName());
     }
