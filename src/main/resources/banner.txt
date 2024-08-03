@@ -1,0 +1,13 @@
+${AnsiColor.BRIGHT_YELLOW}
+
+███╗   ███╗ █████╗  █████╗ ██╗  ██╗     ██╗     Powered by: MaaAssistantArknights
+████╗ ████║██╔══██╗██╔══██╗██║  ██║     ██║
+██╔████╔██║███████║███████║███████║     ██║     Programmed by: Chr0nix
+██║╚██╔╝██║██╔══██║██╔══██║╚════██║██   ██║
+██║ ╚═╝ ██║██║  ██║██║  ██║     ██║╚█████╔╝
+╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝     ╚═╝ ╚════╝
+
+MANIFEST.MF 版本号: ${application.version}
+APPLICATION.VERSION: ${application.formatted-version}
+SPRING.VERSION: ${spring-boot.version}
+SPRING.VERSION: ${spring-boot.formatted-version}
