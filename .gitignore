@@ -38,3 +38,6 @@ out/
 
 ### Data ###
 /config/
+/debug/
+qodana.sarif.json
+qodana.yaml
