@@ -3,6 +3,7 @@ package top.chr0nix.maa4j.utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import jakarta.annotation.PreDestroy;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -26,6 +27,7 @@ import java.util.UUID;
 import static top.chr0nix.maa4j.utils.JWTUtils.SECRET;
 
 @Component
+@Slf4j
 public class RunScript implements ApplicationRunner {
 
     private final Maa4jProperties maa4jProperties;
@@ -57,11 +59,11 @@ public class RunScript implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        System.out.println("maa4j初始化...");
+
+        log.info("maa4j初始化开始");
 
         //参数初始化
         String secret = maa4jProperties.getSecret();
-        String maaPath = maa4jProperties.getMaa_path();
         boolean useData = maa4jProperties.isUse_data();
 
         //读取，初始化动态信息

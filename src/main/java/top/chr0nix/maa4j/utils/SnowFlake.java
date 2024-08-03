@@ -1,7 +1,9 @@
 package top.chr0nix.maa4j.utils;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class SnowFlake {
 
     //下面两个每个5位，加起来就是10位的工作机器id
@@ -20,8 +22,8 @@ public class SnowFlake {
         if (datacenterId > maxDatacenterId || datacenterId < 0) {
             throw new IllegalArgumentException(String.format("datacenter Id can't be greater than %d or less than 0",maxDatacenterId));
         }
-        System.out.printf("worker starting. timestamp left shift %d, datacenter id bits %d, worker id bits %d, sequence bits %d, workerid %d",
-                timestampLeftShift, datacenterIdBits, workerIdBits, sequenceBits, workerId);
+        log.info(String.format("worker starting. timestamp left shift %d, datacenter id bits %d, worker id bits %d, sequence bits %d, workerid %d",
+                        timestampLeftShift, datacenterIdBits, workerIdBits, sequenceBits, workerId));
 
         this.workerId = workerId;
         this.datacenterId = datacenterId;

@@ -3,6 +3,7 @@ package top.chr0nix.maa4j.service.impl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.chr0nix.maa4j.entity.AccountEntity;
@@ -22,6 +23,7 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Service
+@Slf4j
 public class ScheduleServiceImpl implements ScheduleService {
 
     private final DynamicInfo dynamicInfo;
@@ -64,7 +66,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         }
         dynamicInfo.setWaitAccountQueue(waitQueue);
         dynamicInfo.setPreAccountQueue(preQueue);
-        System.out.println("巡检");
+        log.info("巡检");
     }
 
     @Override
@@ -92,7 +94,7 @@ public class ScheduleServiceImpl implements ScheduleService {
             }
         }
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        System.out.println(gson.toJson(dynamicInfo.dump()));
+        log.debug(gson.toJson(dynamicInfo.dump()));
     }
 
 }
