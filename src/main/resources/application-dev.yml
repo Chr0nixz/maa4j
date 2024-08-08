@@ -32,7 +32,7 @@ springdoc:
   group-configs:
     - group: 'default'
       paths-to-match: '/**'
-      packages-to-scan: top.chr0nix.maa4j.controller
+      packages-to-scan: top.chr0nix.maa4j
 
 knife4j:
   enable: true

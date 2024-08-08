@@ -9,14 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StartUpTask extends MaaTask{
+public class RougelikeTask extends MaaTask{
 
-    @Builder.Default
-    String client_type = "Official";
-
-    @Builder.Default
-    boolean start_game_enabled = false;
-
-    String account_name;
+    String theme;
 
 }

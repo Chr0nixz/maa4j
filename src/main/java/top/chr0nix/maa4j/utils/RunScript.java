@@ -84,14 +84,14 @@ public class RunScript implements ApplicationRunner {
             SECRET = secret;
         } else {
             SECRET = UUID.randomUUID().toString().replace("-", "");
-            System.out.println("随机秘钥:" + SECRET);
+            log.info("随机秘钥:{}", SECRET);
         }
 
         if (adbManager.isAdbAvailable()) {
-            System.out.println("adb连接正常！");
+            log.info("adb连接正常！");
         }
 
-        System.out.println("生成超级管理员账号：admin, 密码：maa4j");
+        log.info("正在生成超级管理员账号：admin, 密码：maa4j");
         if (adminRepository.count() == 0L) {
             HashMap<String, Boolean> hashMap = new HashMap<>();
             hashMap.put(AdminAuthority.SUPER, true);
@@ -104,8 +104,7 @@ public class RunScript implements ApplicationRunner {
             adminRepository.saveAndFlush(adminEntity);
         }
 
-
-        System.out.println("maa4j初始化完成！");
+        log.info("maa4j初始化完成！");
     }
 
     @PreDestroy

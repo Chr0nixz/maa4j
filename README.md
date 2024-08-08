@@ -27,12 +27,14 @@ Todo:
 - [x] 更完备的异常处理机制
 - [x] 清晰的API文档
 - [x] 管理员权限管理（完善中）
+- [x] 日志系统
 - [ ] 解决maa截图失败的问题
 - [ ] 自定义换号
 - [ ] 插队功能
 - [ ] 特殊活动设定
 
 ## 使用方法
+### 发行版
 安装java（jdk21及以上版本）  
 安装MySQL8，创建用户并新建数据库maa4j  
 （如果是MySQL8.0以下的版本，请自行更改数据库方言）  
@@ -72,7 +74,7 @@ springdoc:
   group-configs:
     - group: 'default'
       paths-to-match: '/**'
-      packages-to-scan: top.chr0nix.maa4j.controller
+      packages-to-scan: top.chr0nix.maa4j
 
 knife4j:
   enable: true
@@ -92,13 +94,20 @@ maa4j:
 ```shell
 java -jar .../maa4j-latest.jar
 ```
+### 源码
+将src/main/resources/application.yml中的active字段后改为dev（若已经为dev无需在意）
+```yaml
+spring:
+  profiles:
+    active: dev
+```
+然后将同目录下application-dev.yml按照上述示例补充完整  
+编译运行方法自行摸索（建议使用IDE）
 
 ### API文档
 启动后访问：http://localhost:8848/doc.html  
 若需要swagger-ui,请访问：http://localhost:8848//swagger-ui.html
 
-### 已知问题
-- MAA连接似乎会报 ScreencapFailed 错误
 
 
 ## 友情链接

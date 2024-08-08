@@ -1,6 +1,7 @@
 package top.chr0nix.maa4j.utils;
 
 import io.micrometer.common.util.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
@@ -10,6 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.SecureRandom;
 
 @Component
+@Slf4j
 public class AESUtils {
 
     private static final String DEFAULT_CHARSET = "UTF-8";
@@ -76,7 +78,7 @@ public class AESUtils {
                 return new String(result, DEFAULT_CHARSET);
             }
         } catch (Exception e) {
-            System.out.println("AES明文处理异常");
+            log.error("AES明文处理异常");
         }
         return null;
     }

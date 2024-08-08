@@ -1,5 +1,6 @@
 package top.chr0nix.maa4j.maa;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import top.chr0nix.maa4j.exception.adb.AdbConnectException;
@@ -11,6 +12,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 @Component
+@Slf4j
 public class AdbManager {
 
     @Value("${maa4j.adb_path}")
@@ -34,7 +36,7 @@ public class AdbManager {
                 }
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
         } finally {
             if (reader != null) {
                 reader.close();
@@ -50,14 +52,13 @@ public class AdbManager {
             reader = new BufferedReader(new InputStreamReader(connect.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println(line);
                 if (!(line.startsWith("connect") || line.startsWith("already"))) {
                     throw new AdbConnectException(line);
                 }
             }
             return isAlive(address);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
             return false;
         }
     }
@@ -69,7 +70,6 @@ public class AdbManager {
             reader = new BufferedReader(new InputStreamReader(check.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println(line);
                 if (line.startsWith(address)) {
                     if (!(Objects.equals(line.split("\\t")[1], "device"))){
                         throw new DeviceDeadException(address);
@@ -77,10 +77,10 @@ public class AdbManager {
                 }
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
             return false;
         }
-        System.out.println(address + " alive");
+        log.info("{} alive", address);
         return true;
     }
 
@@ -92,7 +92,6 @@ public class AdbManager {
             reader = new BufferedReader(new InputStreamReader(check.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null && !line.startsWith("List")) {
-                System.out.println(line);
                 String[] strings = line.split("\\t");
                 outMap.put(strings[0], strings[1]);
             }
@@ -104,7 +103,7 @@ public class AdbManager {
                 }
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
             return deviceMap;
         }
         return deviceMap;

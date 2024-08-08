@@ -4,10 +4,8 @@ import com.sun.jna.Native;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.Async;
 import top.chr0nix.maa4j.maa.MaaCore;
 import top.chr0nix.maa4j.service.intf.AsyncService;
-import top.chr0nix.maa4j.service.intf.MaaService;
 import top.chr0nix.maa4j.utils.model.Maa4jProperties;
 
 @Configuration

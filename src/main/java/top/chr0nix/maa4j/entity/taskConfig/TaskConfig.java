@@ -8,6 +8,6 @@ public abstract class TaskConfig {
 
     public abstract boolean check();
 
-    public abstract List<MaaTask> getTask();
+    public abstract List<MaaTask> generateTask();
 
 }

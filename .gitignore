@@ -41,4 +41,4 @@ out/
 /debug/
 qodana.sarif.json
 qodana.yaml
-/src/main/resources/application-private.yml
+/src/main/resources/application-test.yml

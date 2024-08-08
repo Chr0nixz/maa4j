@@ -1,5 +1,6 @@
 package top.chr0nix.maa4j.entity.taskConfig;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,10 +15,13 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "基建换班设置")
 public class InfrastConfig extends TaskConfig {
 
+    @Schema(description = "要换班的设施（有序）")
     ArrayList<String> facility;
 
+    @Schema(description = "无人机用途", example = "_NotUse")
     String drones;
 
     @Override
@@ -39,7 +43,7 @@ public class InfrastConfig extends TaskConfig {
     }
 
     @Override
-    public List<MaaTask> getTask(){
+    public List<MaaTask> generateTask(){
         return Collections.singletonList(InfrastTask.builder().facility(facility).drones(drones).build());
     }
 

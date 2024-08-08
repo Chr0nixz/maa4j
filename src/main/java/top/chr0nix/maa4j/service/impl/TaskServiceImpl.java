@@ -19,7 +19,6 @@ public class TaskServiceImpl implements TaskService {
     private AccountRepository accountRepo;
     private AccountService accountService;
     private DynamicInfo dynamicInfo;
-    //private ConcurrentHashMap<Long, AccountTask> accountTaskCache = new ConcurrentHashMap<>();
 
     @Autowired
     public void setAccountRepo(AccountRepository repo) {
@@ -53,16 +52,16 @@ public class TaskServiceImpl implements TaskService {
     public AccountTask getAccountTask(Long accountId) throws Exception {
         AccountEntity accountEntity = accountRepo.findFirstById(accountId);
         AccountTask accountTask = AccountTask.builder().account(accountEntity.getAccount())
-                .password(accountService.getPassword(accountEntity)).build();
+                .password(accountService.getPassword(accountEntity)).build().init();
         AccountConfig accountConfig = accountEntity.getConfig();
         if (accountConfig.isEnableRecruit()) {
-            accountTask.getTasks().add(accountConfig.getRecruitConfig().getTask().getFirst());
+            accountTask.getTasks().add(accountConfig.getRecruitConfig().generateTask().getFirst());
         }
         if (accountConfig.isEnableInfrast()) {
-            accountTask.getTasks().add(accountConfig.getInfrastConfig().getTask().getFirst());
+            accountTask.getTasks().add(accountConfig.getInfrastConfig().generateTask().getFirst());
         }
         if (accountConfig.isEnableFight()) {
-            accountTask.getTasks().addAll(accountConfig.getFightConfig().getTask());
+            accountTask.getTasks().addAll(accountConfig.getFightConfig().generateTask());
         }
         return accountTask;
     }

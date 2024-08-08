@@ -1,5 +1,6 @@
 package top.chr0nix.maa4j.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import top.chr0nix.maa4j.service.intf.AsyncService;
 import top.chr0nix.maa4j.utils.model.Maa4jProperties;
 
 @Service
+@Slf4j
 public class AsyncServiceImpl implements AsyncService {
 
     private final String executor = "taskExecutor";
@@ -22,7 +24,8 @@ public class AsyncServiceImpl implements AsyncService {
     @Override
     @Async(executor)
     public void maaLoadResource(MaaCore maaCore) {
-        maaCore.AsstLoadResource(maa4jProperties.getMaa_path());
-        System.out.println("Maa加载成功！");
+        if (maaCore.AsstLoadResource(maa4jProperties.getMaa_path())) {
+            log.info("Maa加载成功！");
+        }
     }
 }
